@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
 /* ── Types ─────────────────────────────────────────────── */
@@ -156,6 +156,19 @@ const slideUp = (delay = 0) => ({
 export default function Projects() {
   const [activeRepo, setActiveRepo] = useState<string | null>(null)
   const [hoveredPin, setHoveredPin] = useState<string | null>(null)
+  const [repos, setRepos] = useState<RepoEntry[]>(ALL_REPOS)
+  const [pinned, setPinned] = useState<PinnedProject[]>(PINNED)
+
+  useEffect(() => {
+    fetch('/.netlify/functions/github-repos')
+      .then(r => r.json())
+      .then(data => {
+        if (data.error || !data.repos || !data.pinned) return
+        setRepos(data.repos)
+        setPinned(data.pinned)
+      })
+      .catch(() => {/* keep hardcoded fallback */})
+  }, [])
 
   return (
     <section id="projects" className="relative z-10 section-pad">
@@ -207,13 +220,13 @@ export default function Projects() {
                   border: '1px solid rgba(96,165,250,0.3)',
                 }}
               >
-                {ALL_REPOS.length}
+                {repos.length}
               </span>
             </div>
 
             {/* Repo list */}
             <div className="overflow-y-auto flex-1 chat-scroll">
-              {ALL_REPOS.map((repo) => (
+              {repos.map((repo) => (
                 <button
                   key={repo.name}
                   onMouseEnter={() => setActiveRepo(repo.name)}
@@ -305,7 +318,7 @@ export default function Projects() {
 
           {/* ── RIGHT: 2×2 pinned cards ───────────────────── */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 content-start">
-            {PINNED.map((proj, i) => (
+            {pinned.map((proj, i) => (
               <motion.article
                 key={proj.name}
                 {...slideUp(0.05 + i * 0.07)}
