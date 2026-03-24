@@ -76,7 +76,7 @@ export default function Experience() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' as const }}
           transition={{ duration: 0.5 }}
-          className="mb-20 text-center"
+          className="mb-10 md:mb-20 text-center"
         >
           <div className="flex items-center justify-center gap-3 mb-6">
             <span className="text-4xl">💼</span>

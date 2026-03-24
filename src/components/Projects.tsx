@@ -194,8 +194,7 @@ export default function Projects() {
         {/* Two-column layout */}
         <motion.div
           {...slideUp(0.1)}
-          className="grid gap-5"
-          style={{ gridTemplateColumns: 'minmax(0, 2fr) minmax(0, 3fr)' }}
+          className="grid grid-cols-1 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-5"
         >
           {/* ── LEFT: Repo sidebar ────────────────────────── */}
           <div

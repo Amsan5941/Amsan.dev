@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import profileImg from './images/Gemini_Generated_Image_tki0bptki0bptki0.png'
 
 interface Message {
   role: 'user' | 'assistant'
@@ -83,15 +84,19 @@ export default function HeroChat() {
     <section className="relative min-h-screen flex flex-col items-center justify-center px-4 py-20 z-10">
       <motion.div
         {...fade(0.2)}
-        className="relative w-28 h-28 rounded-full flex items-center justify-center mb-10"
+        className="relative rounded-full mb-8"
         style={{
-          background: 'linear-gradient(135deg, rgba(30,58,138,0.2), rgba(245,158,11,0.15))',
+          width: 336,
+          height: 336,
           border: '2px solid rgba(30,58,138,0.4)',
-          boxShadow:
-            '0 0 40px rgba(30,58,138,0.2), 0 0 80px rgba(30,58,138,0.08), inset 0 0 30px rgba(30,58,138,0.1)',
+          boxShadow: '0 0 40px rgba(30,58,138,0.25), 0 0 80px rgba(30,58,138,0.1)',
         }}
       >
-        <span className="font-display font-bold text-3xl grad-purple select-none">AN</span>
+        <img
+          src={profileImg}
+          alt="Amsan Naheswaran"
+          className="w-full h-full object-cover rounded-full"
+        />
         <div
           className="absolute inset-0 rounded-full animate-ping"
           style={{

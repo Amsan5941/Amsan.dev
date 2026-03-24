@@ -23,7 +23,7 @@ export default function Craft() {
     <section className="relative z-10 section-pad">
       <hr className="rule" />
 
-      <div className="wrap pt-20 section-shell p-8 md:p-12">
+      <div className="wrap section-shell p-8 md:p-12 pt-10 md:pt-16">
         <div className="grid md:grid-cols-2 gap-16 items-start">
           <motion.div {...secFade()}>
             <span className="label text-purple tracking-widest">THE CRAFT</span>

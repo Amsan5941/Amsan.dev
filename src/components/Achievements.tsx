@@ -63,7 +63,7 @@ export default function Achievements() {
       <hr className="rule" />
 
       <div className="wrap">
-        <div className="pt-20 grid md:grid-cols-[200px_1fr] gap-12 lg:gap-20">
+        <div className="pt-8 md:pt-14 grid md:grid-cols-[200px_1fr] gap-8 md:gap-12 lg:gap-20">
           <motion.div {...secFade()}>
             <span className="label text-purple tracking-widest">RECOGNITION</span>
           </motion.div>
