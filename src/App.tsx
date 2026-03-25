@@ -13,6 +13,7 @@ import FlagshipCaseStudies from './components/FlagshipCaseStudies'
 import GitHubContributions from './components/GitHubContributions'
 import Achievements     from './components/Achievements'
 import RecruiterQuickPack from './components/RecruiterQuickPack'
+import Testimonials     from './components/Testimonials'
 import Contact          from './components/Contact'
 import Footer           from './components/Footer'
 
@@ -61,6 +62,7 @@ export default function App() {
           <div id="case-studies">
             <FlagshipCaseStudies />
           </div>
+          <Testimonials />
           <Achievements />
           <RecruiterQuickPack />
           <Contact />

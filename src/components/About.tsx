@@ -50,14 +50,14 @@ export default function About() {
             className="font-display font-bold text-ink leading-tight heading-bar"
             style={{ fontSize: 'clamp(2.5rem, 5.5vw, 64px)', marginTop: 6 }}
           >
-            Building more than{' '}
-            <span className="grad-static">software</span>
+            SRE-first engineer{' '}
+            <span className="grad-static">shipping AI to production</span>
           </h2>
         </motion.div>
 
         <p className="section-lead mb-7">
-          I combine product sense with strong engineering fundamentals to build systems that are reliable,
-          scalable, and meaningful for real users.
+          Four production co-ops across AI, cloud, and platform teams. I care about reliability,
+          observability, and building systems that hold up when things go wrong at 2am.
         </p>
 
         <div className="grid md:grid-cols-3 gap-6">

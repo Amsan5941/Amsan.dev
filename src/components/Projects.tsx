@@ -18,11 +18,21 @@ interface PinnedProject {
   language: string
   langColor: string
   desc: string
+  impactLine: string
   stack: string[]
   stars: number
   forks: number
   demo?: string
   github: string
+}
+
+interface HackathonProject {
+  name: string
+  event: string
+  desc: string
+  stack: string[]
+  github?: string
+  demo?: string
 }
 
 /* ── Data ──────────────────────────────────────────────── */
@@ -91,6 +101,7 @@ const PINNED: PinnedProject[] = [
     slug: 'forgefit',
     language: 'TypeScript', langColor: LANG_COLORS.TypeScript,
     desc: 'AI-driven fitness mobile app with personalized workout adaptation, progress tracking, and social accountability features.',
+    impactLine: 'Personalized AI coaching for 500+ workout sessions',
     stack: ['React Native', 'Expo', 'Firebase', 'OpenAI'],
     stars: 12, forks: 3,
     github: 'https://github.com/Amsan5941',
@@ -100,6 +111,7 @@ const PINNED: PinnedProject[] = [
     slug: 'voice-interview-coach',
     language: 'TypeScript', langColor: LANG_COLORS.TypeScript,
     desc: 'Live voice-to-feedback pipeline providing near-real-time AI coaching for job interview preparation.',
+    impactLine: 'Sub-2s voice-to-feedback latency using AWS Transcribe + Polly',
     stack: ['Next.js', 'Python', 'AWS Polly', 'Transcribe'],
     stars: 8, forks: 2,
     demo: '#',
@@ -110,6 +122,7 @@ const PINNED: PinnedProject[] = [
     slug: 'routepilot',
     language: 'Python', langColor: LANG_COLORS.Python,
     desc: 'AI-powered trip planner with itinerary generation, route optimization, and conversational updates.',
+    impactLine: 'Conversational edits without full itinerary regeneration',
     stack: ['React', 'FastAPI', 'Supabase', 'OpenAI'],
     stars: 15, forks: 5,
     demo: '#',
@@ -120,8 +133,40 @@ const PINNED: PinnedProject[] = [
     slug: 'luxurasilks',
     language: 'TypeScript', langColor: LANG_COLORS.TypeScript,
     desc: 'Fashion e-commerce platform with Stripe checkout, inventory controls, and admin workflows.',
+    impactLine: 'Full Stripe checkout + admin panel shipped end-to-end',
     stack: ['Next.js', 'Supabase', 'Stripe', 'Tailwind'],
     stars: 6, forks: 1,
+    github: 'https://github.com/Amsan5941',
+  },
+]
+
+const HACKATHON_PROJECTS: HackathonProject[] = [
+  {
+    name: 'Voice Interview Coach',
+    event: 'AWS Build On Generative AI',
+    desc: 'Real-time voice coaching app using AWS Nova foundation model. Transcribes speech live, evaluates delivery and content, and plays back targeted feedback via Polly TTS — end-to-end in under 2 seconds.',
+    stack: ['AWS Nova', 'AWS Transcribe', 'AWS Polly', 'Next.js', 'Python'],
+    github: 'https://github.com/Amsan5941',
+  },
+  {
+    name: 'GitLab Duo Agent',
+    event: 'GitLab Duo Hackathon',
+    desc: 'Custom agent on the GitLab Duo Agent Platform that automates PR review intelligence — flags security regressions, summarizes diffs, and surfaces related issues from project history.',
+    stack: ['GitLab Duo SDK', 'Python', 'FastAPI', 'PostgreSQL'],
+    github: 'https://github.com/Amsan5941',
+  },
+  {
+    name: 'Authorized to Act',
+    event: 'Auth0 Hackathon',
+    desc: 'Fine-grained authorization layer for multi-tenant SaaS using Auth0 FGA. Implements relationship-based access control so permissions can be expressed as natural policy rather than hardcoded role checks.',
+    stack: ['Auth0 FGA', 'Node.js', 'React', 'TypeScript'],
+    github: 'https://github.com/Amsan5941',
+  },
+  {
+    name: 'Gradient AI',
+    event: 'DigitalOcean Hackathon',
+    desc: 'AI-powered deployment assistant that analyzes infrastructure state and recommends cost and performance optimizations — integrates with DigitalOcean API to surface actionable changes without leaving the terminal.',
+    stack: ['DigitalOcean API', 'Python', 'OpenAI', 'React'],
     github: 'https://github.com/Amsan5941',
   },
 ]
@@ -365,10 +410,18 @@ export default function Projects() {
                   </span>
                 </div>
 
+                {/* Impact line */}
+                <p
+                  className="text-[11px] font-semibold"
+                  style={{ color: '#f59e0b' }}
+                >
+                  {proj.impactLine}
+                </p>
+
                 {/* Description */}
                 <p
                   className="text-xs leading-relaxed line-clamp-2"
-                  style={{ color: '#cbd5e1' }}
+                  style={{ color: '#94a3b8' }}
                 >
                   {proj.desc}
                 </p>
@@ -439,6 +492,106 @@ export default function Projects() {
                     </a>
                   </div>
                 </div>
+              </motion.article>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* ── Currently Building ──────────────────────────── */}
+        <motion.div {...slideUp(0.25)} className="mt-10">
+          <div className="flex items-center gap-3 mb-5">
+            <div className="flex items-center gap-2">
+              <span
+                className="w-2 h-2 rounded-full animate-pulse"
+                style={{ background: '#10b981', boxShadow: '0 0 6px #10b98166' }}
+              />
+              <span
+                className="text-[10px] font-bold uppercase tracking-widest"
+                style={{ color: '#10b981' }}
+              >
+                Currently Building
+              </span>
+            </div>
+            <span
+              className="font-mono text-[10px] px-2 py-0.5 rounded-full"
+              style={{
+                background: 'rgba(16,185,129,0.1)',
+                color: '#6ee7b7',
+                border: '1px solid rgba(16,185,129,0.25)',
+              }}
+            >
+              Hackathon Season 2025
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {HACKATHON_PROJECTS.map((proj, i) => (
+              <motion.article
+                key={proj.name}
+                {...slideUp(0.05 + i * 0.06)}
+                className="rounded-xl p-5 flex flex-col gap-3"
+                style={{
+                  background: 'rgba(10,10,22,0.85)',
+                  border: '1px solid rgba(16,185,129,0.2)',
+                }}
+              >
+                {/* Event badge */}
+                <span
+                  className="text-[9px] font-bold uppercase tracking-wider self-start px-2 py-0.5 rounded"
+                  style={{
+                    background: 'rgba(16,185,129,0.1)',
+                    color: '#6ee7b7',
+                    border: '1px solid rgba(16,185,129,0.25)',
+                  }}
+                >
+                  {proj.event}
+                </span>
+
+                <h3
+                  className="font-mono text-sm font-semibold"
+                  style={{ color: '#e2e8f0' }}
+                >
+                  {proj.name}
+                </h3>
+
+                <p
+                  className="text-xs leading-relaxed flex-1"
+                  style={{ color: '#94a3b8' }}
+                >
+                  {proj.desc}
+                </p>
+
+                {/* Stack badges */}
+                <div className="flex flex-wrap gap-1">
+                  {proj.stack.map(tech => (
+                    <span
+                      key={tech}
+                      className="font-mono text-[9px] px-1.5 py-0.5 rounded"
+                      style={{
+                        background: 'rgba(16,185,129,0.06)',
+                        color: '#6ee7b7',
+                        border: '1px solid rgba(16,185,129,0.15)',
+                      }}
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Links */}
+                {proj.github && (
+                  <a
+                    href={proj.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1 font-mono text-[10px] font-semibold transition-colors mt-auto"
+                    style={{ color: '#64748b' }}
+                    onMouseEnter={e => (e.currentTarget.style.color = '#f1f5f9')}
+                    onMouseLeave={e => (e.currentTarget.style.color = '#64748b')}
+                  >
+                    GitHub <ExternalIcon />
+                  </a>
+                )}
               </motion.article>
             ))}
           </div>
