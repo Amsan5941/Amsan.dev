@@ -228,32 +228,26 @@ function HackathonGrid({ projects }: { projects: HackathonProject[] }) {
               key={proj.name}
               {...slideUp(0.05 + i * 0.06)}
               onClick={() => toggle(proj.name)}
-              className="rounded-xl p-5 flex flex-col gap-3 cursor-pointer select-none"
-              style={{
-                background: isActive ? 'rgba(16,185,129,0.08)' : 'rgba(10,10,22,0.85)',
-                border: isActive ? '1px solid rgba(16,185,129,0.5)' : '1px solid rgba(16,185,129,0.2)',
-                boxShadow: isActive ? '0 0 24px rgba(16,185,129,0.1)' : 'none',
-                transition: 'all 0.2s ease',
-              }}
+              className={`hackathon-card rounded-xl p-5 flex flex-col gap-3 select-none${isActive ? ' is-active' : ''}`}
             >
               <div className="flex items-center justify-between gap-2">
                 <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded self-start"
-                  style={{ background: 'rgba(16,185,129,0.1)', color: '#6ee7b7', border: '1px solid rgba(16,185,129,0.25)' }}>
+                  style={{ background: 'rgba(16,185,129,0.1)', color: '#10b981', border: '1px solid rgba(16,185,129,0.25)' }}>
                   {proj.event}
                 </span>
                 <svg width="12" height="12" viewBox="0 0 16 16" fill="none"
-                  style={{ color: '#6ee7b7', flexShrink: 0, transform: isActive ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>
+                  style={{ color: '#10b981', flexShrink: 0, transform: isActive ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>
                   <path d="M3 6l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
 
-              <h3 className="font-mono text-sm font-semibold" style={{ color: '#e2e8f0' }}>{proj.name}</h3>
-              <p className="text-xs leading-relaxed flex-1" style={{ color: '#94a3b8' }}>{proj.desc}</p>
+              <h3 className="hc-title font-mono text-sm font-semibold">{proj.name}</h3>
+              <p className="hc-desc text-xs leading-relaxed flex-1">{proj.desc}</p>
 
               <div className="flex flex-wrap gap-1">
                 {proj.stack.map(tech => (
                   <span key={tech} className="font-mono text-[9px] px-1.5 py-0.5 rounded"
-                    style={{ background: 'rgba(16,185,129,0.06)', color: '#6ee7b7', border: '1px solid rgba(16,185,129,0.15)' }}>
+                    style={{ background: 'rgba(16,185,129,0.06)', color: '#10b981', border: '1px solid rgba(16,185,129,0.15)' }}>
                     {tech}
                   </span>
                 ))}
@@ -276,27 +270,25 @@ function HackathonGrid({ projects }: { projects: HackathonProject[] }) {
               transition={{ duration: 0.3, ease: 'easeInOut' }}
               style={{ overflow: 'hidden' }}
             >
-              <div className="rounded-xl p-6 grid grid-cols-1 md:grid-cols-3 gap-6"
-                style={{ background: 'rgba(10,10,22,0.9)', border: '1px solid rgba(16,185,129,0.3)' }}>
+              <div className="hackathon-detail grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
                   <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: '#10b981' }}>Problem</p>
-                  <p className="text-xs leading-relaxed" style={{ color: '#cbd5e1' }}>{proj.problem}</p>
+                  <p className="hd-body text-xs leading-relaxed">{proj.problem}</p>
                 </div>
                 <div>
                   <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: '#10b981' }}>Approach</p>
-                  <p className="text-xs leading-relaxed" style={{ color: '#cbd5e1' }}>{proj.approach}</p>
+                  <p className="hd-body text-xs leading-relaxed">{proj.approach}</p>
                 </div>
                 <div className="flex flex-col gap-4">
                   <div>
                     <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: '#10b981' }}>Status</p>
-                    <p className="text-xs leading-relaxed" style={{ color: '#6ee7b7' }}>{proj.status}</p>
+                    <p className="text-xs leading-relaxed" style={{ color: '#10b981' }}>{proj.status}</p>
                   </div>
                   {proj.github && (
                     <a href={proj.github} target="_blank" rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 font-mono text-xs font-semibold transition-colors mt-auto self-start"
-                      style={{ color: '#64748b' }}
-                      onMouseEnter={e => (e.currentTarget.style.color = '#f1f5f9')}
-                      onMouseLeave={e => (e.currentTarget.style.color = '#64748b')}
+                      className="flex items-center gap-1.5 font-mono text-xs font-semibold transition-colors mt-auto self-start hd-muted"
+                      onMouseEnter={e => (e.currentTarget.style.color = 'var(--text-primary)')}
+                      onMouseLeave={e => (e.currentTarget.style.color = '')}
                       onClick={e => e.stopPropagation()}
                     >
                       GitHub <ExternalIcon />

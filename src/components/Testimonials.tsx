@@ -19,7 +19,7 @@ export default function Testimonials() {
   const [hovered, setHovered] = useState<string | null>(null)
 
   return (
-    <section className="relative z-10 section-pad">
+    <section id="recognition" className="relative z-10 section-pad">
       <hr className="rule" />
       <div className="wrap">
 

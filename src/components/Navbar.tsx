@@ -20,7 +20,7 @@ export default function Navbar({ theme, onThemeChange }: NavbarProps) {
   }, [])
 
   useEffect(() => {
-    const ids = ['home', 'projects', 'case-studies', 'experience', 'contact']
+    const ids = ['home', 'experience', 'projects', 'case-studies', 'recognition', 'contact']
     const sections = ids
       .map(id => document.getElementById(id))
       .filter((el): el is HTMLElement => !!el)
@@ -44,9 +44,10 @@ export default function Navbar({ theme, onThemeChange }: NavbarProps) {
 
   const navLinks = [
     { id: 'home', label: 'Home' },
+    { id: 'experience', label: 'Experience' },
     { id: 'projects', label: 'Projects' },
     { id: 'case-studies', label: 'Case Studies' },
-    { id: 'experience', label: 'Experience' },
+    { id: 'recognition', label: 'Recognition' },
     { id: 'contact', label: 'Contact' },
   ]
 

@@ -15,6 +15,7 @@ import RecruiterQuickPack from './components/RecruiterQuickPack'
 import Testimonials     from './components/Testimonials'
 import Contact          from './components/Contact'
 import Footer           from './components/Footer'
+import ChatWidget       from './components/ChatWidget'
 
 const SkillsGlobe = lazy(() => import('./components/SkillsGlobe'))
 
@@ -42,6 +43,7 @@ export default function App() {
       <Starfield />
       <ScrollProgress />
       <CustomCursor />
+      <ChatWidget />
       <div className="relative min-h-screen bg-transparent" style={{ paddingTop: '80px' }}>
         <main>
           <div id="home">

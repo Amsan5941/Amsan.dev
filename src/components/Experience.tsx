@@ -43,6 +43,34 @@ const JOBS = [
       'Reduced reporting errors by 25%',
     ],
   },
+  {
+    id: 'avolta',
+    company: 'Avolta',
+    role: 'Software Developer',
+    type: 'Co-op',
+    period: '2022',
+    accentColor: '#34d399',
+    achievement: 'Internal tooling shipped',
+    bullets: [
+      'Developed internal web tools for global operations team',
+      'Improved workflow automation reducing manual steps',
+      'Collaborated cross-functionally with business stakeholders',
+    ],
+  },
+  {
+    id: 'mcdonalds',
+    company: "McDonald's",
+    role: 'Team Lead',
+    type: 'Part-time',
+    period: '2020 – 2022',
+    accentColor: '#fb923c',
+    achievement: 'Led team of 10+',
+    bullets: [
+      'Led a team of 10+ during high-volume shifts',
+      'Trained and onboarded new team members',
+      'Maintained operational standards and customer satisfaction',
+    ],
+  },
 ]
 
 const slideUp = (delay = 0) => ({
@@ -61,14 +89,14 @@ export default function Experience() {
         <motion.div {...slideUp()} className="mb-10">
           <span className="label tracking-widest">EXPERIENCE</span>
           <h2 className="font-display font-bold text-ink mt-3" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.2rem)' }}>
-            4 production co-ops
+            Work Experience
           </h2>
           <p className="text-secondary mt-2" style={{ fontSize: '0.95rem' }}>
-            AI, cloud, platform, and full-stack — across healthcare, manufacturing, and food tech.
+            AI, cloud, platform, and full-stack — across healthcare, manufacturing, hospitality, and food tech.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {JOBS.map((job, i) => (
             <motion.article
               key={job.id}

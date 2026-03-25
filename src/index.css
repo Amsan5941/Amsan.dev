@@ -370,6 +370,69 @@ body.light .dark-card {
 .dark-card .dc-muted { color: var(--text-muted); }
 .dark-card .dc-head  { color: var(--text-primary); }
 
+/* Hackathon grid cards */
+.hackathon-card {
+  background: rgba(10, 10, 22, 0.85);
+  border: 1px solid rgba(16,185,129,0.2);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.hackathon-card.is-active {
+  background: rgba(16,185,129,0.08);
+  border-color: rgba(16,185,129,0.5);
+  box-shadow: 0 0 24px rgba(16,185,129,0.1);
+}
+body.light .hackathon-card {
+  background: #ffffff;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+body.light .hackathon-card.is-active {
+  background: rgba(16,185,129,0.05);
+  box-shadow: 0 4px 20px rgba(16,185,129,0.12);
+}
+.hackathon-card .hc-title { color: var(--text-primary); }
+.hackathon-card .hc-desc  { color: var(--text-secondary); }
+
+/* Hackathon detail panel */
+.hackathon-detail {
+  background: rgba(10, 10, 22, 0.92);
+  border: 1px solid rgba(16,185,129,0.3);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+body.light .hackathon-detail {
+  background: #f0fdf9;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+.hackathon-detail .hd-body  { color: var(--text-secondary); }
+.hackathon-detail .hd-muted { color: var(--text-muted); }
+
+/* Section heading standard size */
+.section-h2 {
+  font-size: clamp(2.6rem, 5.5vw, 4rem) !important;
+}
+
+/* ── Chat widget ──────────────────────────────────────────── */
+.chat-widget-panel {
+  position: fixed;
+  bottom: 88px;
+  left: 24px;
+  width: min(380px, calc(100vw - 48px));
+  z-index: 200;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* ── Responsive helpers ───────────────────────────────────── */
+@media (max-width: 640px) {
+  .mosaic-no-rotate {
+    transform: none !important;
+  }
+  .wrap {
+    padding: 0 1rem;
+  }
+}
+
 .ui-panel {
   background: rgba(15, 23, 42, 0.72);
   border: 1px solid var(--card-border);
