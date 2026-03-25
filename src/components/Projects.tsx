@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 
 /* ── Types ─────────────────────────────────────────────── */
 interface RepoEntry {
@@ -33,6 +33,9 @@ interface HackathonProject {
   stack: string[]
   github?: string
   demo?: string
+  problem: string
+  approach: string
+  status: string
 }
 
 /* ── Data ──────────────────────────────────────────────── */
@@ -101,7 +104,7 @@ const PINNED: PinnedProject[] = [
     slug: 'forgefit',
     language: 'TypeScript', langColor: LANG_COLORS.TypeScript,
     desc: 'AI-driven fitness mobile app with personalized workout adaptation, progress tracking, and social accountability features.',
-    impactLine: 'Personalized AI coaching for 500+ workout sessions',
+    impactLine: '📱 1000+ App Store Downloads · ⭐ 4.2★ Rating · 150+ Reviews',
     stack: ['React Native', 'Expo', 'Firebase', 'OpenAI'],
     stars: 12, forks: 3,
     github: 'https://github.com/Amsan5941',
@@ -144,30 +147,42 @@ const HACKATHON_PROJECTS: HackathonProject[] = [
   {
     name: 'Voice Interview Coach',
     event: 'AWS Build On Generative AI',
-    desc: 'Real-time voice coaching app using AWS Nova foundation model. Transcribes speech live, evaluates delivery and content, and plays back targeted feedback via Polly TTS — end-to-end in under 2 seconds.',
+    desc: 'Real-time voice coaching with sub-2s latency using AWS Nova.',
     stack: ['AWS Nova', 'AWS Transcribe', 'AWS Polly', 'Next.js', 'Python'],
     github: 'https://github.com/Amsan5941',
+    problem: 'Interview prep tools give feedback asynchronously — you record, wait, then read a report. By then the moment is gone. The goal was live, in-ear coaching that felt like having a mentor in the room.',
+    approach: 'AWS Transcribe streams partial transcripts in real time. A Lambda function evaluates filler words, pace, and answer structure against the question context using Nova. Polly converts the coaching note to speech and plays it back within the response window.',
+    status: 'In progress — core pipeline working, fine-tuning feedback latency and prompt quality',
   },
   {
     name: 'GitLab Duo Agent',
     event: 'GitLab Duo Hackathon',
-    desc: 'Custom agent on the GitLab Duo Agent Platform that automates PR review intelligence — flags security regressions, summarizes diffs, and surfaces related issues from project history.',
+    desc: 'PR review agent that flags regressions and surfaces related issues.',
     stack: ['GitLab Duo SDK', 'Python', 'FastAPI', 'PostgreSQL'],
     github: 'https://github.com/Amsan5941',
+    problem: 'Reviewers spend time on things a machine could catch — security anti-patterns, missing test coverage, and connections to open issues. The goal was an agent that handles the mechanical review so humans focus on architecture.',
+    approach: 'Built on the GitLab Duo Agent Platform. The agent receives a webhook on PR open, diffs the changeset, runs static checks, queries the project issue graph for related open bugs, and posts a structured review comment with confidence scores.',
+    status: 'In progress — diff parsing and issue correlation complete, security rule engine in development',
   },
   {
     name: 'Authorized to Act',
     event: 'Auth0 Hackathon',
-    desc: 'Fine-grained authorization layer for multi-tenant SaaS using Auth0 FGA. Implements relationship-based access control so permissions can be expressed as natural policy rather than hardcoded role checks.',
+    desc: 'Relationship-based access control for multi-tenant SaaS using Auth0 FGA.',
     stack: ['Auth0 FGA', 'Node.js', 'React', 'TypeScript'],
     github: 'https://github.com/Amsan5941',
+    problem: 'Most SaaS authorization is hardcoded role checks scattered across the codebase. Changing who can do what requires a code deploy. Auth0 FGA lets you express permissions as a policy graph — no code change for permission changes.',
+    approach: 'Modeled a multi-tenant workspace with owner, editor, and viewer roles using FGA\'s tuple-based graph. Built a Node.js middleware layer that intercepts API requests and evaluates the FGA policy before the handler runs — zero permission logic in application code.',
+    status: 'In progress — policy model complete, middleware integration 80% done',
   },
   {
     name: 'Gradient AI',
     event: 'DigitalOcean Hackathon',
-    desc: 'AI-powered deployment assistant that analyzes infrastructure state and recommends cost and performance optimizations — integrates with DigitalOcean API to surface actionable changes without leaving the terminal.',
+    desc: 'AI deployment assistant that surfaces infrastructure optimizations via CLI.',
     stack: ['DigitalOcean API', 'Python', 'OpenAI', 'React'],
     github: 'https://github.com/Amsan5941',
+    problem: 'Infrastructure cost and performance issues are buried in dashboards most developers never open. The goal was a CLI tool that queries your DigitalOcean stack and surfaces concrete, actionable recommendations in plain English.',
+    approach: 'Python CLI fetches current droplet, database, and load balancer state via the DO API. An OpenAI-powered reasoning layer compares the state against cost and performance heuristics and generates prioritized recommendations with one-command fixes.',
+    status: 'In progress — API ingestion and recommendation engine complete, CLI UX in polish phase',
   },
 ]
 
@@ -196,6 +211,106 @@ const slideUp = (delay = 0) => ({
   viewport: { once: true, margin: '-60px' as const },
   transition: { duration: 0.5, delay, ease: 'easeOut' as const },
 })
+
+/* ── HackathonGrid ─────────────────────────────────────── */
+function HackathonGrid({ projects }: { projects: HackathonProject[] }) {
+  const [active, setActive] = useState<string | null>(null)
+
+  const toggle = (name: string) => setActive(prev => prev === name ? null : name)
+
+  return (
+    <div className="space-y-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {projects.map((proj, i) => {
+          const isActive = active === proj.name
+          return (
+            <motion.article
+              key={proj.name}
+              {...slideUp(0.05 + i * 0.06)}
+              onClick={() => toggle(proj.name)}
+              className="rounded-xl p-5 flex flex-col gap-3 cursor-pointer select-none"
+              style={{
+                background: isActive ? 'rgba(16,185,129,0.08)' : 'rgba(10,10,22,0.85)',
+                border: isActive ? '1px solid rgba(16,185,129,0.5)' : '1px solid rgba(16,185,129,0.2)',
+                boxShadow: isActive ? '0 0 24px rgba(16,185,129,0.1)' : 'none',
+                transition: 'all 0.2s ease',
+              }}
+            >
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded self-start"
+                  style={{ background: 'rgba(16,185,129,0.1)', color: '#6ee7b7', border: '1px solid rgba(16,185,129,0.25)' }}>
+                  {proj.event}
+                </span>
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none"
+                  style={{ color: '#6ee7b7', flexShrink: 0, transform: isActive ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>
+                  <path d="M3 6l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+
+              <h3 className="font-mono text-sm font-semibold" style={{ color: '#e2e8f0' }}>{proj.name}</h3>
+              <p className="text-xs leading-relaxed flex-1" style={{ color: '#94a3b8' }}>{proj.desc}</p>
+
+              <div className="flex flex-wrap gap-1">
+                {proj.stack.map(tech => (
+                  <span key={tech} className="font-mono text-[9px] px-1.5 py-0.5 rounded"
+                    style={{ background: 'rgba(16,185,129,0.06)', color: '#6ee7b7', border: '1px solid rgba(16,185,129,0.15)' }}>
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </motion.article>
+          )
+        })}
+      </div>
+
+      {/* Expanded detail panel */}
+      <AnimatePresence>
+        {active && (() => {
+          const proj = projects.find(p => p.name === active)!
+          return (
+            <motion.div
+              key={active}
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              style={{ overflow: 'hidden' }}
+            >
+              <div className="rounded-xl p-6 grid grid-cols-1 md:grid-cols-3 gap-6"
+                style={{ background: 'rgba(10,10,22,0.9)', border: '1px solid rgba(16,185,129,0.3)' }}>
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: '#10b981' }}>Problem</p>
+                  <p className="text-xs leading-relaxed" style={{ color: '#cbd5e1' }}>{proj.problem}</p>
+                </div>
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: '#10b981' }}>Approach</p>
+                  <p className="text-xs leading-relaxed" style={{ color: '#cbd5e1' }}>{proj.approach}</p>
+                </div>
+                <div className="flex flex-col gap-4">
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: '#10b981' }}>Status</p>
+                    <p className="text-xs leading-relaxed" style={{ color: '#6ee7b7' }}>{proj.status}</p>
+                  </div>
+                  {proj.github && (
+                    <a href={proj.github} target="_blank" rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 font-mono text-xs font-semibold transition-colors mt-auto self-start"
+                      style={{ color: '#64748b' }}
+                      onMouseEnter={e => (e.currentTarget.style.color = '#f1f5f9')}
+                      onMouseLeave={e => (e.currentTarget.style.color = '#64748b')}
+                      onClick={e => e.stopPropagation()}
+                    >
+                      GitHub <ExternalIcon />
+                    </a>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          )
+        })()}
+      </AnimatePresence>
+    </div>
+  )
+}
 
 /* ── Main component ────────────────────────────────────── */
 export default function Projects() {
@@ -501,100 +616,17 @@ export default function Projects() {
         <motion.div {...slideUp(0.25)} className="mt-10">
           <div className="flex items-center gap-3 mb-5">
             <div className="flex items-center gap-2">
-              <span
-                className="w-2 h-2 rounded-full animate-pulse"
-                style={{ background: '#10b981', boxShadow: '0 0 6px #10b98166' }}
-              />
-              <span
-                className="text-[10px] font-bold uppercase tracking-widest"
-                style={{ color: '#10b981' }}
-              >
-                Currently Building
-              </span>
+              <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#10b981', boxShadow: '0 0 6px #10b98166' }} />
+              <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#10b981' }}>Currently Building</span>
             </div>
-            <span
-              className="font-mono text-[10px] px-2 py-0.5 rounded-full"
-              style={{
-                background: 'rgba(16,185,129,0.1)',
-                color: '#6ee7b7',
-                border: '1px solid rgba(16,185,129,0.25)',
-              }}
-            >
+            <span className="font-mono text-[10px] px-2 py-0.5 rounded-full"
+              style={{ background: 'rgba(16,185,129,0.1)', color: '#6ee7b7', border: '1px solid rgba(16,185,129,0.25)' }}>
               Hackathon Season 2025
             </span>
+            <span className="font-mono text-[10px]" style={{ color: '#64748b' }}>· click any card for details</span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {HACKATHON_PROJECTS.map((proj, i) => (
-              <motion.article
-                key={proj.name}
-                {...slideUp(0.05 + i * 0.06)}
-                className="rounded-xl p-5 flex flex-col gap-3"
-                style={{
-                  background: 'rgba(10,10,22,0.85)',
-                  border: '1px solid rgba(16,185,129,0.2)',
-                }}
-              >
-                {/* Event badge */}
-                <span
-                  className="text-[9px] font-bold uppercase tracking-wider self-start px-2 py-0.5 rounded"
-                  style={{
-                    background: 'rgba(16,185,129,0.1)',
-                    color: '#6ee7b7',
-                    border: '1px solid rgba(16,185,129,0.25)',
-                  }}
-                >
-                  {proj.event}
-                </span>
-
-                <h3
-                  className="font-mono text-sm font-semibold"
-                  style={{ color: '#e2e8f0' }}
-                >
-                  {proj.name}
-                </h3>
-
-                <p
-                  className="text-xs leading-relaxed flex-1"
-                  style={{ color: '#94a3b8' }}
-                >
-                  {proj.desc}
-                </p>
-
-                {/* Stack badges */}
-                <div className="flex flex-wrap gap-1">
-                  {proj.stack.map(tech => (
-                    <span
-                      key={tech}
-                      className="font-mono text-[9px] px-1.5 py-0.5 rounded"
-                      style={{
-                        background: 'rgba(16,185,129,0.06)',
-                        color: '#6ee7b7',
-                        border: '1px solid rgba(16,185,129,0.15)',
-                      }}
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Links */}
-                {proj.github && (
-                  <a
-                    href={proj.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1 font-mono text-[10px] font-semibold transition-colors mt-auto"
-                    style={{ color: '#64748b' }}
-                    onMouseEnter={e => (e.currentTarget.style.color = '#f1f5f9')}
-                    onMouseLeave={e => (e.currentTarget.style.color = '#64748b')}
-                  >
-                    GitHub <ExternalIcon />
-                  </a>
-                )}
-              </motion.article>
-            ))}
-          </div>
+          <HackathonGrid projects={HACKATHON_PROJECTS} />
         </motion.div>
 
         {/* Bottom CTA */}

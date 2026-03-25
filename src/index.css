@@ -355,6 +355,21 @@ body.light .section-shell {
   background: linear-gradient(145deg, rgba(30,58,138,0.02), rgba(245,158,11,0.03));
 }
 
+/* Adaptive dark card — dark in dark mode, white in light mode */
+.dark-card {
+  background: rgba(10, 10, 22, 0.88);
+  border: 1px solid var(--card-border);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+body.light .dark-card {
+  background: #ffffff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+}
+/* Text helpers that flip in light mode */
+.dark-card .dc-body  { color: var(--text-secondary); }
+.dark-card .dc-muted { color: var(--text-muted); }
+.dark-card .dc-head  { color: var(--text-primary); }
+
 .ui-panel {
   background: rgba(15, 23, 42, 0.72);
   border: 1px solid var(--card-border);

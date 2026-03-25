@@ -74,15 +74,8 @@ const CASE_STUDIES: CaseStudy[] = [
 
 const ChevronIcon = ({ open }: { open: boolean }) => (
   <svg
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="none"
-    style={{
-      transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
-      transition: 'transform 0.25s ease',
-      flexShrink: 0,
-    }}
+    width="16" height="16" viewBox="0 0 16 16" fill="none"
+    style={{ transform: open ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.25s ease', flexShrink: 0 }}
   >
     <path d="M3 6l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
@@ -90,44 +83,32 @@ const ChevronIcon = ({ open }: { open: boolean }) => (
 
 const Section = ({ label, content }: { label: string; content: string }) => (
   <div className="mb-5 last:mb-0">
-    <p
-      className="text-[10px] font-bold uppercase tracking-widest mb-2"
-      style={{ color: '#f59e0b' }}
-    >
+    <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: '#f59e0b' }}>
       {label}
     </p>
-    <p className="text-sm leading-relaxed" style={{ color: '#cbd5e1' }}>
-      {content}
-    </p>
+    <p className="dc-body text-sm leading-relaxed">{content}</p>
   </div>
 )
 
 export default function FlagshipCaseStudies() {
   const [expanded, setExpanded] = useState<string | null>(null)
-
-  const toggle = (title: string) =>
-    setExpanded(prev => (prev === title ? null : title))
+  const toggle = (title: string) => setExpanded(prev => prev === title ? null : title)
 
   return (
     <section id="case-studies" className="relative z-10 section-pad">
       <hr className="rule" />
       <div className="wrap">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' as const }}
-          transition={{ duration: 0.45 }}
+          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' as const }} transition={{ duration: 0.45 }}
           className="mb-10"
         >
           <span className="label tracking-widest">FLAGSHIP CASE STUDIES</span>
-          <h2
-            className="font-display font-bold text-ink mt-3"
-            style={{ fontSize: 'clamp(2.5rem, 5vw, 60px)' }}
-          >
+          <h2 className="font-display font-bold text-ink mt-3" style={{ fontSize: 'clamp(2.5rem, 5vw, 60px)' }}>
             Systems that shipped, scaled, and delivered outcomes
           </h2>
           <p className="text-secondary mt-4 max-w-2xl" style={{ fontSize: '1rem', lineHeight: 1.7 }}>
-            Three projects I can speak to at depth — covering architecture decisions, tradeoffs I made under real constraints, and what I'd do differently.
+            Three projects I can speak to at depth — covering architecture decisions, tradeoffs made under real constraints, and what I'd do differently.
           </p>
         </motion.div>
 
@@ -137,85 +118,40 @@ export default function FlagshipCaseStudies() {
             return (
               <motion.article
                 key={item.title}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-60px' as const }}
                 transition={{ duration: 0.4, delay: index * 0.07 }}
-                className="rounded-xl overflow-hidden"
+                className="dark-card rounded-xl overflow-hidden"
                 style={{
-                  background: 'rgba(10,10,22,0.85)',
-                  border: isOpen
-                    ? '1px solid rgba(30,58,138,0.5)'
-                    : '1px solid var(--card-border)',
-                  boxShadow: isOpen ? '0 8px 32px rgba(30,58,138,0.15)' : 'none',
-                  transition: 'border-color 0.2s, box-shadow 0.2s',
+                  border: isOpen ? '1px solid rgba(30,58,138,0.5)' : undefined,
+                  boxShadow: isOpen ? '0 8px 32px rgba(30,58,138,0.15)' : undefined,
                 }}
               >
-                {/* Header — always visible */}
-                <button
-                  onClick={() => toggle(item.title)}
-                  className="w-full text-left px-6 py-5 flex flex-col sm:flex-row sm:items-start gap-4"
-                >
+                {/* Header */}
+                <button onClick={() => toggle(item.title)} className="w-full text-left px-6 py-5 flex flex-col sm:flex-row sm:items-start gap-4">
                   <div className="flex-1 min-w-0">
-                    {/* Role + company + period */}
                     <div className="flex flex-wrap items-center gap-2 mb-2">
                       <span
                         className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded"
-                        style={{
-                          background: 'rgba(30,58,138,0.2)',
-                          color: '#93c5fd',
-                          border: '1px solid rgba(96,165,250,0.25)',
-                        }}
+                        style={{ background: 'rgba(30,58,138,0.2)', color: '#93c5fd', border: '1px solid rgba(96,165,250,0.25)' }}
                       >
                         {item.role}
                       </span>
-                      <span className="text-xs font-mono" style={{ color: '#64748b' }}>
-                        {item.company} · {item.period}
-                      </span>
+                      <span className="dc-muted text-xs font-mono">{item.company} · {item.period}</span>
                     </div>
-
-                    {/* Title */}
-                    <h3
-                      className="font-display font-semibold text-xl mb-3"
-                      style={{ color: 'var(--text-primary)' }}
-                    >
-                      {item.title}
-                    </h3>
-
-                    {/* Impact line */}
-                    <p
-                      className="text-sm font-medium mb-3"
-                      style={{ color: '#f59e0b' }}
-                    >
-                      {item.impactLine}
-                    </p>
-
-                    {/* Stack badges */}
+                    <h3 className="dc-head font-display font-semibold text-xl mb-3">{item.title}</h3>
+                    <p className="text-sm font-medium mb-3" style={{ color: '#f59e0b' }}>{item.impactLine}</p>
                     <div className="flex flex-wrap gap-1.5">
                       {item.stack.map(tech => (
-                        <span
-                          key={tech}
-                          className="font-mono text-[10px] px-2 py-0.5 rounded"
-                          style={{
-                            background: 'rgba(245,158,11,0.08)',
-                            color: '#f59e0b',
-                            border: '1px solid rgba(245,158,11,0.2)',
-                          }}
-                        >
+                        <span key={tech} className="font-mono text-[10px] px-2 py-0.5 rounded"
+                          style={{ background: 'rgba(245,158,11,0.08)', color: '#f59e0b', border: '1px solid rgba(245,158,11,0.2)' }}>
                           {tech}
                         </span>
                       ))}
                     </div>
                   </div>
-
-                  {/* Expand toggle */}
-                  <div
-                    className="flex items-center gap-2 shrink-0 mt-1"
-                    style={{ color: '#64748b' }}
-                  >
-                    <span className="text-xs font-mono">
-                      {isOpen ? 'Collapse' : 'Read case study'}
-                    </span>
+                  <div className="flex items-center gap-2 shrink-0 mt-1 dc-muted">
+                    <span className="text-xs font-mono">{isOpen ? 'Collapse' : 'Read case study'}</span>
                     <ChevronIcon open={isOpen} />
                   </div>
                 </button>
@@ -223,18 +159,12 @@ export default function FlagshipCaseStudies() {
                 {/* Expanded body */}
                 <AnimatePresence initial={false}>
                   {isOpen && (
-                    <motion.div
-                      key="body"
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    <motion.div key="body"
+                      initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3, ease: 'easeInOut' }}
                       style={{ overflow: 'hidden' }}
                     >
-                      <div
-                        className="px-6 pb-7 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-0"
-                        style={{ borderTop: '1px solid var(--card-border)' }}
-                      >
+                      <div className="px-6 pb-7 grid grid-cols-1 md:grid-cols-2 gap-x-10" style={{ borderTop: '1px solid var(--card-border)' }}>
                         <div className="pt-6">
                           <Section label="Problem" content={item.problem} />
                           <Section label="Architecture" content={item.architecture} />
