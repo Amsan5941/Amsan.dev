@@ -37,7 +37,7 @@ export default function HeroChat() {
       <motion.div {...fade(0.32)} className="flex items-center gap-2 mb-4">
         <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
         <span className="text-xs font-mono font-semibold uppercase tracking-widest"
-          style={{ color: '#10b981' }}>Available May 2026</span>
+          style={{ color: '#10b981' }}>Open To Work</span>
       </motion.div>
 
       <motion.h1
