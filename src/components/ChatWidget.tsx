@@ -13,12 +13,18 @@ const PILLS = [
   { label: 'Hire', prompt: "Is Amsan available and what roles is he targeting?" },
 ]
 
+const WELCOME: Message = {
+  role: 'assistant',
+  content: "Hi! I'm Amsan's AI assistant. Ask me about his work experience, skills, projects, or if he's available for roles. 👋",
+}
+
 export default function ChatWidget() {
   const [open, setOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
   const [unread, setUnread] = useState(false)
+  const [pulsing, setPulsing] = useState(false)
   const chatRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -29,9 +35,22 @@ export default function ChatWidget() {
   useEffect(() => {
     if (open) {
       setUnread(false)
+      setPulsing(false)
       setTimeout(() => inputRef.current?.focus(), 200)
     }
   }, [open])
+
+  // Auto-open once per session with welcome message
+  useEffect(() => {
+    if (sessionStorage.getItem('chatSeen')) return
+    const pulse = setTimeout(() => setPulsing(true), 1500)
+    const open = setTimeout(() => {
+      setMessages([WELCOME])
+      setOpen(true)
+      sessionStorage.setItem('chatSeen', '1')
+    }, 3000)
+    return () => { clearTimeout(pulse); clearTimeout(open) }
+  }, [])
 
   const send = async (text: string) => {
     if (!text.trim() || loading) return
@@ -240,6 +259,12 @@ export default function ChatWidget() {
             </motion.svg>
           )}
         </AnimatePresence>
+
+        {/* Pulsing ring */}
+        {pulsing && !open && (
+          <span className="absolute inset-0 rounded-full animate-ping"
+            style={{ background: 'linear-gradient(135deg, #1e3a8a, #f59e0b)', opacity: 0.3 }} />
+        )}
 
         {/* Unread dot */}
         {unread && !open && (

@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState, useEffect } from 'react'
+import { lazy, Suspense, useState, useLayoutEffect } from 'react'
 import Navbar            from './components/Navbar'
 import Starfield         from './components/Starfield'
 import ScrollProgress    from './components/ScrollProgress'
@@ -20,15 +20,13 @@ import ChatWidget       from './components/ChatWidget'
 const SkillsGlobe = lazy(() => import('./components/SkillsGlobe'))
 
 export default function App() {
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark')
+  const [theme, setTheme] = useState<'dark' | 'light'>('light')
 
-  useEffect(() => {
-    // Load saved theme preference
+  useLayoutEffect(() => {
     const savedTheme = localStorage.getItem('theme') as 'dark' | 'light' | null
-    if (savedTheme) {
-      setTheme(savedTheme)
-      document.body.classList.toggle('light', savedTheme === 'light')
-    }
+    const initialTheme = savedTheme ?? 'light'
+    setTheme(initialTheme)
+    document.body.classList.toggle('light', initialTheme === 'light')
   }, [])
 
   const handleThemeChange = (newTheme: 'dark' | 'light') => {
@@ -49,6 +47,7 @@ export default function App() {
           <div id="home">
             <HeroChat />
           </div>
+          <GitHubContributions />
           <ProofBar />
           <div id="skills">
             <Suspense fallback={<div className="section-pad" />}>
@@ -59,7 +58,6 @@ export default function App() {
           <Craft />
           <Experience />
           <Projects />
-          <GitHubContributions />
           <div id="case-studies">
             <FlagshipCaseStudies />
           </div>

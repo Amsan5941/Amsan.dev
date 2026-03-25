@@ -15,7 +15,7 @@ export default function RecruiterQuickPack() {
         >
           <div>
             <span className="label tracking-widest">RECRUITER QUICK PACK</span>
-            <h2 className="font-display font-bold text-ink mt-3 mb-4" style={{ fontSize: 'clamp(2.5rem, 5vw, 58px)' }}>
+            <h2 className="section-h2 font-display font-bold text-ink mt-3 mb-4">
               Short version, fast decision support
             </h2>
             <p className="text-secondary leading-relaxed max-w-2xl">

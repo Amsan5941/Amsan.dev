@@ -25,7 +25,7 @@ export default function Testimonials() {
 
         <motion.div {...slideUp()} className="mb-10">
           <span className="label tracking-widest">SOCIAL PROOF &amp; RECOGNITION</span>
-          <h2 className="font-display font-bold text-ink mt-3" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)' }}>
+          <h2 className="section-h2 font-display font-bold text-ink mt-3">
             Built, shipped, recognized.
           </h2>
         </motion.div>

@@ -88,7 +88,7 @@ export default function Experience() {
 
         <motion.div {...slideUp()} className="mb-10">
           <span className="label tracking-widest">EXPERIENCE</span>
-          <h2 className="font-display font-bold text-ink mt-3" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.2rem)' }}>
+          <h2 className="section-h2 font-display font-bold text-ink mt-3">
             Work Experience
           </h2>
           <p className="text-secondary mt-2" style={{ fontSize: '0.95rem' }}>
@@ -96,12 +96,12 @@ export default function Experience() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="flex flex-wrap justify-center gap-5">
           {JOBS.map((job, i) => (
             <motion.article
               key={job.id}
               {...slideUp(i * 0.08)}
-              className="dark-card rounded-2xl p-6 flex flex-col gap-4"
+              className="experience-card dark-card rounded-2xl p-6 flex flex-col gap-4"
             >
               {/* Top bar accent */}
               <div className="h-0.5 rounded-full w-12" style={{ background: job.accentColor }} />

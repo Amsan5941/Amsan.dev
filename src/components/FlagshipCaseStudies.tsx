@@ -104,7 +104,7 @@ export default function FlagshipCaseStudies() {
           className="mb-10"
         >
           <span className="label tracking-widest">FLAGSHIP CASE STUDIES</span>
-          <h2 className="font-display font-bold text-ink mt-3" style={{ fontSize: 'clamp(2.5rem, 5vw, 60px)' }}>
+          <h2 className="section-h2 font-display font-bold text-ink mt-3">
             Systems that shipped, scaled, and delivered outcomes
           </h2>
           <p className="text-secondary mt-4 max-w-2xl" style={{ fontSize: '1rem', lineHeight: 1.7 }}>

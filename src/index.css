@@ -5,16 +5,16 @@
 /* ── CSS Variables ────────────────────────────────────────── */
 :root {
   /* Dark mode (default) */
-  --bg-primary: #080812;
-  --bg-surface: #0f0f23;
-  --bg-elevated: #1a1a2e;
-  --bg-alt: #0c1222;
-  --text-primary: #f8fafc;
+  --bg-primary: #07071a;
+  --bg-surface: #0d0d22;
+  --bg-elevated: #141428;
+  --bg-alt: #0a0f1e;
+  --text-primary: #f1f5f9;
   --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
-  --card-border: rgba(255,255,255,0.08);
-  --card-shadow: 0 8px 40px rgba(30,58,138,0.2);
-  --navbar-bg: rgba(8,8,18,0.85);
+  --text-muted: #8896aa;
+  --card-border: rgba(255,255,255,0.1);
+  --card-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05);
+  --navbar-bg: rgba(7,7,26,0.88);
   --accent-primary: #1e3a8a;
   --accent-secondary: #f59e0b;
 }
@@ -57,9 +57,10 @@ body.light {
 body {
   background-color: var(--bg-primary);
   background-image:
-    radial-gradient(circle at 14% 24%, rgba(30,58,138,0.28), transparent 48%),
-    radial-gradient(circle at 86% 34%, rgba(180,83,9,0.22), transparent 52%),
-    linear-gradient(105deg, #020617 0%, #060b2a 42%, #1a1114 76%, #24130f 100%);
+    radial-gradient(circle at 14% 24%, rgba(30,58,138,0.32), transparent 46%),
+    radial-gradient(circle at 86% 34%, rgba(245,158,11,0.12), transparent 50%),
+    radial-gradient(circle at 50% 80%, rgba(30,58,138,0.1), transparent 55%),
+    linear-gradient(135deg, #020617 0%, #060c2a 40%, #0b0f28 70%, #060a1e 100%);
   color: var(--text-primary);
   font-family: 'Outfit', system-ui, sans-serif;
   font-weight: 400;
@@ -346,24 +347,35 @@ body.light .navbar-logo-circle {
 /* ── Section shells ──────────────────────────────────────── */
 .section-shell {
   border-radius: 24px;
-  border: 1px solid var(--card-border);
-  background: linear-gradient(145deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
-  box-shadow: var(--card-shadow);
+  border: 1px solid rgba(255,255,255,0.1);
+  background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  box-shadow: 0 8px 40px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.07);
 }
 
 body.light .section-shell {
   background: linear-gradient(145deg, rgba(30,58,138,0.02), rgba(245,158,11,0.03));
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  border-color: rgba(0,0,0,0.07);
 }
 
 /* Adaptive dark card — dark in dark mode, white in light mode */
 .dark-card {
-  background: rgba(10, 10, 22, 0.88);
-  border: 1px solid var(--card-border);
+  background: rgba(13, 13, 34, 0.9);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
   transition: border-color 0.2s, box-shadow 0.2s;
+}
+.dark-card:hover {
+  border-color: rgba(30,58,138,0.35);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 20px rgba(30,58,138,0.1), inset 0 1px 0 rgba(255,255,255,0.07);
 }
 body.light .dark-card {
   background: #ffffff;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+}
+body.light .dark-card:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.11);
+  border-color: rgba(30,58,138,0.18);
 }
 /* Text helpers that flip in light mode */
 .dark-card .dc-body  { color: var(--text-secondary); }
@@ -421,6 +433,21 @@ body.light .hackathon-detail {
   z-index: 200;
   border-radius: 16px;
   overflow: hidden;
+}
+
+/* ── Experience card responsive widths (centers last row) ─── */
+.experience-card {
+  flex: 0 0 100%;
+}
+@media (min-width: 640px) {
+  .experience-card {
+    flex: 0 0 calc(50% - 10px);
+  }
+}
+@media (min-width: 1024px) {
+  .experience-card {
+    flex: 0 0 calc(33.333% - 14px);
+  }
 }
 
 /* ── Responsive helpers ───────────────────────────────────── */
@@ -566,12 +593,13 @@ body.light .card-standard {
 
 /* ── Glassmorphism card ──────────────────────────────────── */
 .glass-card {
-  background: rgba(15, 15, 35, 0.8);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  background: rgba(13, 13, 32, 0.82);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
   border-radius: 24px;
   position: relative;
   padding: 40px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.07);
   transition: all 0.3s ease;
 }
 

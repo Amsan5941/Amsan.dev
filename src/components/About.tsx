@@ -47,8 +47,8 @@ export default function About() {
         <motion.div {...secFade()} className="mb-6 text-center">
           <span className="label text-purple tracking-widest">ABOUT</span>
           <h2
-            className="font-display font-bold text-ink leading-tight heading-bar"
-            style={{ fontSize: 'clamp(2.5rem, 5.5vw, 64px)', marginTop: 6 }}
+            className="section-h2 font-display font-bold text-ink leading-tight heading-bar"
+            style={{ marginTop: 6 }}
           >
             SRE-first engineer{' '}
             <span className="grad-static">shipping AI to production</span>
