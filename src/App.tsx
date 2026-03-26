@@ -9,6 +9,7 @@ import About            from './components/About'
 import Experience       from './components/Experience'
 import Projects         from './components/Projects'
 import GitHubContributions from './components/GitHubContributions'
+import FlagshipCaseStudies from './components/FlagshipCaseStudies'
 import RecruiterQuickPack from './components/RecruiterQuickPack'
 import Testimonials     from './components/Testimonials'
 import Contact          from './components/Contact'
@@ -69,7 +70,7 @@ export default function App() {
             flexShrink: 0,
           }}
         />
-        <span>Available for full-time roles · May 2026 · SRE / Platform / AI Engineering</span>
+        <span>Available for full-time roles · May 2026 · SWE / SRE / AI Engineering</span>
         <span style={{ opacity: 0.5, fontSize: '11px' }}>·</span>
         <a
           href="mailto:amsan5941@gmail.com"
@@ -101,6 +102,9 @@ export default function App() {
           <About />
           <Experience />
           <Projects />
+          <div id="case-studies">
+            <FlagshipCaseStudies />
+          </div>
           <Testimonials />
           <RecruiterQuickPack />
           <Contact />

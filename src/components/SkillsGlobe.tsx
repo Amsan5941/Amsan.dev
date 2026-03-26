@@ -29,7 +29,6 @@ const SKILLS: SkillDef[] = [
   { name: 'React',        category: 'frontend', color: '#61dafb', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
   { name: 'TypeScript',   category: 'frontend', color: '#3178c6', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
   { name: 'Next.js',      category: 'frontend', color: '#f8fafc', logo: 'https://cdn.simpleicons.org/nextdotjs/ffffff' },
-  { name: 'React Native', category: 'frontend', color: '#61dafb', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
   // Backend
   { name: 'Python',       category: 'backend',  color: '#3776ab', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
   { name: 'Node.js',      category: 'backend',  color: '#68a063', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },

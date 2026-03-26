@@ -383,7 +383,6 @@ export default function Projects() {
             className="repo-sidebar-bg rounded-xl overflow-hidden flex flex-col relative"
             style={{
               border: '1px solid var(--card-border)',
-              maxHeight: 540,
             }}
           >
             {/* Skeleton shimmer while live data loads */}
@@ -501,7 +500,7 @@ export default function Projects() {
 
           {/* ── RIGHT: 2×2 pinned cards ───────────────────── */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 content-start">
-            {pinned.slice(0, 4).map((proj, i) => (
+            {pinned.map((proj, i) => (
               <motion.article
                 key={proj.name}
                 {...slideUp(0.05 + i * 0.07)}
@@ -606,83 +605,6 @@ export default function Projects() {
             ))}
           </div>
         </motion.div>
-
-        {/* ── Full-width featured projects row ─────────────── */}
-        {pinned.length > 4 && (
-          <motion.div {...slideUp(0.22)} className="mt-4 grid sm:grid-cols-2 gap-4">
-            {pinned.slice(4).map((proj, i) => (
-              <motion.article
-                key={proj.name}
-                {...slideUp(0.22 + i * 0.07)}
-                onMouseEnter={() => setHoveredPin(proj.name)}
-                onMouseLeave={() => setHoveredPin(null)}
-                onClick={() => setSelectedPin(proj)}
-                className="pinned-card-bg rounded-xl p-6 flex flex-col gap-3 transition-all duration-200 cursor-pointer"
-                style={{
-                  border: hoveredPin === proj.name
-                    ? '1px solid rgba(212,175,55,0.45)'
-                    : '1px solid var(--card-border)',
-                  boxShadow: hoveredPin === proj.name
-                    ? '0 8px 32px rgba(212,175,55,0.12)'
-                    : 'none',
-                  transform: hoveredPin === proj.name ? 'translateY(-2px)' : 'none',
-                }}
-              >
-                <div className="flex items-start justify-between gap-2">
-                  <div className="flex items-center gap-2 min-w-0">
-                    <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style={{ color: '#64748b', flexShrink: 0 }}>
-                      <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8Z" />
-                    </svg>
-                    <a
-                      href={proj.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-mono text-sm font-semibold truncate transition-colors"
-                      style={{ color: 'var(--text-primary)' }}
-                      onMouseEnter={e => (e.currentTarget.style.color = '#d4af37')}
-                      onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-primary)')}
-                    >
-                      {proj.name}
-                    </a>
-                  </div>
-                  <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded shrink-0"
-                    style={{ background: 'rgba(212,175,55,0.12)', color: '#d4af37', border: '1px solid rgba(212,175,55,0.3)' }}>
-                    featured
-                  </span>
-                </div>
-                <p className="text-[11px] font-semibold" style={{ color: '#d4af37' }}>{proj.impactLine}</p>
-                <p className="text-xs leading-relaxed" style={{ color: 'var(--text-muted)' }}>{proj.desc}</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {proj.stack.map(tech => (
-                    <span key={tech} className="font-mono text-[10px] px-2 py-0.5 rounded"
-                      style={{ background: 'rgba(212,175,55,0.08)', color: '#d4af37', border: '1px solid rgba(212,175,55,0.2)' }}>
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-                <div className="flex items-center justify-between gap-2 mt-auto pt-2" style={{ borderTop: '1px solid var(--card-border)' }}>
-                  <div className="flex items-center gap-2 flex-wrap">
-                    {(proj.languages && proj.languages.length > 0
-                      ? proj.languages
-                      : [{ name: proj.language, color: proj.langColor }]
-                    ).map(lang => (
-                      <div key={lang.name} className="flex items-center gap-1">
-                        <span className="w-2 h-2 rounded-full" style={{ background: lang.color, boxShadow: `0 0 4px ${lang.color}66` }} />
-                        <span className="font-mono text-[10px]" style={{ color: 'var(--text-muted)' }}>{lang.name}</span>
-                      </div>
-                    ))}
-                    <div className="flex items-center gap-1" style={{ color: 'var(--text-muted)' }}>
-                      <StarIcon /><span className="font-mono text-[10px]">{proj.stars}</span>
-                    </div>
-                  </div>
-                  <span className="font-mono text-[9px] flex items-center gap-1" style={{ color: 'var(--text-muted)' }}>
-                    click for details ↗
-                  </span>
-                </div>
-              </motion.article>
-            ))}
-          </motion.div>
-        )}
 
         {/* ── Currently Building ──────────────────────────── */}
         <motion.div {...slideUp(0.25)} className="mt-10">

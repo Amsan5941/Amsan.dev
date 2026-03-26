@@ -56,7 +56,7 @@ export default function HeroChat() {
         className="text-center text-secondary mb-8 font-medium"
         style={{ fontSize: 'clamp(18px, 2.5vw, 22px)', maxWidth: '820px' }}
       >
-        AI systems, cloud infrastructure, and full-stack products — across healthcare, manufacturing, and hospitality. CS grad, TMU, Spring 2026.
+        AI systems, cloud infrastructure, and full-stack products. Across healthcare, manufacturing, and hospitality. CS grad, TMU, Spring 2026.
       </motion.p>
 
       <motion.div {...fade(0.55)} className="flex flex-wrap justify-center items-center gap-3 mb-10">
