@@ -393,7 +393,7 @@ export default function Projects() {
             className="repo-sidebar-bg rounded-xl overflow-hidden flex flex-col relative"
             style={{
               border: '1px solid var(--card-border)',
-              maxHeight: sidebarMaxH,
+              maxHeight: sidebarMaxH ? sidebarMaxH - 80 : undefined,
             }}
           >
             {/* Skeleton shimmer while live data loads */}
