@@ -29,7 +29,7 @@ const METHODS = [
     label: 'LinkedIn',
     handle: 'amsan-naheswaran',
     cta: 'Connect with me',
-    href: 'https://linkedin.com/in/amsan-naheswaran',
+    href: 'https://www.linkedin.com/in/amsan-naheswaran-243407231/',
     color: '#0a66c2',
     external: true,
     icon: (

@@ -119,7 +119,7 @@ export default function RecruiterQuickPack() {
                   Download Resume
                 </a>
                 <a
-                  href="https://linkedin.com/in/amsan-naheswaran"
+                  href="https://www.linkedin.com/in/amsan-naheswaran-243407231/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-secondary justify-center flex items-center gap-2"

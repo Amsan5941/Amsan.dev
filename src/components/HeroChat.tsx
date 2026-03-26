@@ -99,7 +99,7 @@ export default function HeroChat() {
       {/* Social links */}
       <motion.div {...fade(0.65)} className="flex items-center gap-5 mb-14">
         <a
-          href="https://linkedin.com/in/amsan-naheswaran"
+          href="https://www.linkedin.com/in/amsan-naheswaran-243407231/"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 font-mono text-xs font-semibold transition-all duration-200"

@@ -21,7 +21,7 @@ export default function Footer() {
               GitHub
             </a>
             <a
-              href="https://linkedin.com/in/amsan-naheswaran"
+              href="https://www.linkedin.com/in/amsan-naheswaran-243407231/"
               target="_blank"
               rel="noopener noreferrer"
               className="lnk text-sm font-medium hover:text-cyan transition-colors"

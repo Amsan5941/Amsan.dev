@@ -38,7 +38,7 @@ export default function Testimonials() {
 
             {/* LinkedIn Recommendation — Lorand Sari */}
             <motion.a
-              href="https://linkedin.com/in/amsan-naheswaran"
+              href="https://www.linkedin.com/in/amsan-naheswaran-243407231/"
               target="_blank"
               rel="noopener noreferrer"
               {...slideUp(0.08)}
@@ -180,7 +180,7 @@ export default function Testimonials() {
                   1ST PLACE – All Intern Teams
                 </span>
                 <a
-                  href="https://linkedin.com/in/amsan-naheswaran"
+                  href="https://www.linkedin.com/in/amsan-naheswaran-243407231/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded"
@@ -220,6 +220,55 @@ export default function Testimonials() {
               <p className="dc-muted font-mono text-[10px] font-bold uppercase tracking-widest">{m.label}</p>
             </div>
           ))}
+        </motion.div>
+
+        {/* ── LinkedIn Social Proof Links ─────────────────── */}
+        <motion.div {...slideUp(0.24)} className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+          {/* Recommendations */}
+          <a
+            href="https://www.linkedin.com/in/amsan-naheswaran-243407231/details/recommendations/"
+            target="_blank"
+            rel="noopener noreferrer"
+            onMouseEnter={() => setHovered('recommendations')}
+            onMouseLeave={() => setHovered(null)}
+            className="dark-card rounded-xl p-6 flex items-center justify-between cursor-pointer"
+            style={{
+              border: hovered === 'recommendations' ? '1.5px solid rgba(10,102,194,0.5)' : '1px solid rgba(10,102,194,0.25)',
+              boxShadow: hovered === 'recommendations' ? '0 12px 40px rgba(10,102,194,0.15)' : '0 4px 20px rgba(0,0,0,0.1)',
+              transform: hovered === 'recommendations' ? 'translateY(-4px)' : 'translateY(0)',
+              transition: 'all 0.3s ease',
+              textDecoration: 'none',
+            }}
+          >
+            <div>
+              <p className="font-mono text-[10px] font-bold uppercase tracking-widest" style={{ color: '#0a66c2' }}>LinkedIn Recommendations</p>
+              <p className="dc-body text-sm mt-1">View endorsements from colleagues</p>
+            </div>
+            <span className="text-xl ml-4">→</span>
+          </a>
+
+          {/* Certifications */}
+          <a
+            href="https://www.linkedin.com/in/amsan-naheswaran-243407231/details/certifications/"
+            target="_blank"
+            rel="noopener noreferrer"
+            onMouseEnter={() => setHovered('certifications')}
+            onMouseLeave={() => setHovered(null)}
+            className="dark-card rounded-xl p-6 flex items-center justify-between cursor-pointer"
+            style={{
+              border: hovered === 'certifications' ? '1.5px solid rgba(106,90,205,0.5)' : '1px solid rgba(106,90,205,0.25)',
+              boxShadow: hovered === 'certifications' ? '0 12px 40px rgba(106,90,205,0.15)' : '0 4px 20px rgba(0,0,0,0.1)',
+              transform: hovered === 'certifications' ? 'translateY(-4px)' : 'translateY(0)',
+              transition: 'all 0.3s ease',
+              textDecoration: 'none',
+            }}
+          >
+            <div>
+              <p className="font-mono text-[10px] font-bold uppercase tracking-widest" style={{ color: '#6a5acd' }}>Licenses & Certifications</p>
+              <p className="dc-body text-sm mt-1">View my professional credentials</p>
+            </div>
+            <span className="text-xl ml-4">→</span>
+          </a>
         </motion.div>
 
       </div>

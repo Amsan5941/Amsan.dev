@@ -9,7 +9,7 @@ Here is everything about Amsan:
 - ForgeFit: fitness app built with React Native, Expo, Firebase, OpenAI — live on the App Store with 1000+ downloads, 4.2★ rating, 150+ reviews
 - Based in Toronto, open to US relocation
 - Interests: AI/ML, personal finance (TFSA/RRSP, ETFs), NBA
-- Links: GitHub (github.com/Amsan5941), LinkedIn (linkedin.com/in/amsan-naheswaran)
+- Links: GitHub (github.com/Amsan5941), LinkedIn (linkedin.com/in/amsan-naheswaran-243407231)
 - Contact: amsan5941@gmail.com, available for full-time roles starting Spring 2026`;
 
 const CORS = {

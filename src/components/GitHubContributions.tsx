@@ -247,7 +247,7 @@ export default function GitHubContributions() {
                 className="glass-card p-4 rounded-xl text-center"
                 style={{
                   borderColor: `${s.color}44`,
-                  ...(isLightMode ? { background: 'rgba(10,10,28,0.85)' } : {}),
+                  ...(isLightMode ? { background: 'rgba(255,255,255,0.7)', border: `1.5px solid ${s.color}33` } : {}),
                 }}
               >
                 <div
@@ -258,13 +258,13 @@ export default function GitHubContributions() {
                 </div>
                 <div
                   className="mt-1 text-xs font-mono uppercase tracking-wider"
-                  style={{ color: '#94a3b8' }}
+                  style={{ color: isLightMode ? '#1e293b' : '#94a3b8' }}
                 >
                   {s.label}
                 </div>
                 <div
                   className="text-xs mt-0.5"
-                  style={{ color: '#94a3b8', opacity: 0.7 }}
+                  style={{ color: isLightMode ? '#475569' : '#94a3b8', opacity: isLightMode ? 1 : 0.7 }}
                 >
                   {s.sub}
                 </div>
@@ -298,7 +298,7 @@ export default function GitHubContributions() {
                       style={{
                         height: 11,
                         fontSize: 9,
-                        color: '#64748b',
+                        color: isLightMode ? '#1e293b' : '#64748b',
                         fontFamily: 'JetBrains Mono, monospace',
                         lineHeight: '11px',
                         width: 24,
@@ -436,7 +436,7 @@ export default function GitHubContributions() {
                       style={{
                         fontFamily: 'JetBrains Mono, monospace',
                         fontSize: 11,
-                        color: '#cbd5e1',
+                        color: isLightMode ? '#1e293b' : '#cbd5e1',
                       }}
                     >
                       {lang.name}
@@ -445,7 +445,7 @@ export default function GitHubContributions() {
                       style={{
                         fontFamily: 'JetBrains Mono, monospace',
                         fontSize: 11,
-                        color: '#94a3b8',
+                        color: isLightMode ? '#475569' : '#94a3b8',
                       }}
                     >
                       {lang.percent}%
