@@ -10,7 +10,6 @@ interface RepoEntry {
   updated: string
   stars: number
   pinned: boolean
-  isFork?: boolean
 }
 
 interface PinnedProject {
@@ -431,19 +430,6 @@ export default function Projects() {
                           }}
                         >
                           pinned
-                        </span>
-                      )}
-                      {repo.isFork && (
-                        <span
-                          className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded"
-                          style={{
-                            background: 'rgba(148,163,184,0.10)',
-                            color: '#64748b',
-                            border: '1px solid rgba(148,163,184,0.20)',
-                            flexShrink: 0,
-                          }}
-                        >
-                          fork
                         </span>
                       )}
                     </div>
