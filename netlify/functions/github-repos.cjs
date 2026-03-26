@@ -151,7 +151,6 @@ exports.handler = async function (event) {
     })
 
     const repos = repositories.nodes
-      .filter(r => !r.isFork)
       .map(r => ({
         name:      r.name,
         language:  r.primaryLanguage?.name ?? 'Unknown',
@@ -160,6 +159,7 @@ exports.handler = async function (event) {
         updated:   timeAgo(r.updatedAt),
         stars:     r.stargazerCount,
         pinned:    pinnedNames.has(r.name),
+        isFork:    r.isFork,
       }))
 
     return {
