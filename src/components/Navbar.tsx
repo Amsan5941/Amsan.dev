@@ -46,7 +46,6 @@ export default function Navbar({ theme, onThemeChange }: NavbarProps) {
     { id: 'home', label: 'Home' },
     { id: 'experience', label: 'Experience' },
     { id: 'projects', label: 'Projects' },
-    { id: 'case-studies', label: 'Case Studies' },
     { id: 'recognition', label: 'Recognition' },
     { id: 'contact', label: 'Contact' },
   ]

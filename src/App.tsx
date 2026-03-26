@@ -8,7 +8,6 @@ import ProofBar          from './components/ProofBar'
 import About            from './components/About'
 import Experience       from './components/Experience'
 import Projects         from './components/Projects'
-import FlagshipCaseStudies from './components/FlagshipCaseStudies'
 import GitHubContributions from './components/GitHubContributions'
 import RecruiterQuickPack from './components/RecruiterQuickPack'
 import Testimonials     from './components/Testimonials'
@@ -102,9 +101,6 @@ export default function App() {
           <About />
           <Experience />
           <Projects />
-          <div id="case-studies">
-            <FlagshipCaseStudies />
-          </div>
           <Testimonials />
           <RecruiterQuickPack />
           <Contact />
