@@ -157,10 +157,20 @@ export default function Testimonials() {
                 <span style={{ opacity: 0.35, fontSize: '1.2rem' }}>⭐</span>
               </div>
               <div>
-                <h3 className="dc-head font-display font-bold leading-tight"
-                  style={{ fontSize: 'clamp(1.5rem, 3vw, 2.1rem)' }}>
+                <a
+                  href="https://www.linkedin.com/in/amsan-naheswaran-243407231/details/certifications/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="dc-head font-display font-bold leading-tight"
+                  style={{
+                    fontSize: 'clamp(1.5rem, 3vw, 2.1rem)',
+                    color: 'inherit',
+                    textDecoration: 'none',
+                    cursor: 'pointer',
+                  }}
+                >
                   PCC AI Trailblazer Award
-                </h3>
+                </a>
                 <p className="font-display font-bold mt-1" style={{ fontSize: 'clamp(1.4rem, 2.5vw, 1.9rem)', color: '#d4af37' }}>
                   2025
                 </p>

@@ -171,44 +171,54 @@ const PINNED: PinnedProject[] = [
 
 const HACKATHON_PROJECTS: HackathonProject[] = [
   {
-    name: 'Voice Interview Coach',
-    event: 'AWS Build On Generative AI',
-    desc: 'Real-time voice coaching with sub-2s latency using AWS Nova.',
-    stack: ['AWS Nova', 'AWS Transcribe', 'AWS Polly', 'Next.js', 'Python'],
-    github: 'https://github.com/Amsan5941',
-    problem: 'Interview prep tools give feedback asynchronously — you record, wait, then read a report. By then the moment is gone. The goal was live, in-ear coaching that felt like having a mentor in the room.',
-    approach: 'AWS Transcribe streams partial transcripts in real time. A Lambda function evaluates filler words, pace, and answer structure against the question context using Nova. Polly converts the coaching note to speech and plays it back within the response window.',
-    status: 'In progress — core pipeline working, fine-tuning feedback latency and prompt quality',
+    name: 'NovaPrep',
+    event: 'Amazon Nova AI Hackathon',
+    desc: 'AI-powered interview preparation assistant focused on live coaching and response quality.',
+    stack: ['AWS Nova', 'TypeScript', 'Next.js', 'Speech AI'],
+    github: 'https://devpost.com/software/novaprep?ref_content=user-portfolio&ref_feature=in_progress',
+    problem: 'Interview prep is often asynchronous and too late to correct weak answers in the moment. The goal is to provide immediate guidance while candidates practice.',
+    approach: 'The app analyzes responses in real time, scores structure and clarity, and returns targeted coaching prompts to improve delivery and confidence.',
+    status: 'In progress — iterating on feedback quality and latency',
   },
   {
-    name: 'GitLab Duo Agent',
-    event: 'GitLab Duo Hackathon',
-    desc: 'PR review agent that flags regressions and surfaces related issues.',
-    stack: ['GitLab Duo SDK', 'Python', 'FastAPI', 'PostgreSQL'],
-    github: 'https://github.com/Amsan5941',
-    problem: 'Reviewers spend time on things a machine could catch — security anti-patterns, missing test coverage, and connections to open issues. The goal was an agent that handles the mechanical review so humans focus on architecture.',
-    approach: 'Built on the GitLab Duo Agent Platform. The agent receives a webhook on PR open, diffs the changeset, runs static checks, queries the project issue graph for related open bugs, and posts a structured review comment with confidence scores.',
-    status: 'In progress — diff parsing and issue correlation complete, security rule engine in development',
+    name: 'Developer Growth Path Agent',
+    event: 'GitLab AI Hackathon',
+    desc: 'Agent that maps developer skills, identifies gaps, and generates practical growth roadmaps.',
+    stack: ['AI Agent', 'Python', 'FastAPI', 'React'],
+    github: 'https://devpost.com/software/developer-growth-path-agent?ref_content=user-portfolio&ref_feature=in_progress',
+    problem: 'Developers often lack a clear, personalized path from current skills to target roles. Generic learning plans are hard to follow and poorly prioritized.',
+    approach: 'The agent evaluates current capabilities, compares them against role expectations, and creates milestone-based action plans with adaptive recommendations.',
+    status: 'In progress — refining skill graph mapping and recommendation ranking',
   },
   {
-    name: 'Authorized to Act',
-    event: 'Auth0 Hackathon',
-    desc: 'Relationship-based access control for multi-tenant SaaS using Auth0 FGA.',
-    stack: ['Auth0 FGA', 'Node.js', 'React', 'TypeScript'],
-    github: 'https://github.com/Amsan5941',
-    problem: 'Most SaaS authorization is hardcoded role checks scattered across the codebase. Changing who can do what requires a code deploy. Auth0 FGA lets you express permissions as a policy graph — no code change for permission changes.',
-    approach: 'Modeled a multi-tenant workspace with owner, editor, and viewer roles using FGA\'s tuple-based graph. Built a Node.js middleware layer that intercepts API requests and evaluates the FGA policy before the handler runs — zero permission logic in application code.',
-    status: 'In progress — policy model complete, middleware integration 80% done',
+    name: 'RotateOps',
+    event: 'Okta AI Agents Hackathon',
+    desc: 'Auth0 Token Vault-based agent project focused on secure automation workflows for AI-driven operations.',
+    stack: ['Auth0', 'Token Vault', 'AI Agents', 'Security'],
+    github: 'https://github.com/risanth14/RotateOps',
+    problem: 'AI agents need secure access to third-party APIs without exposing long-lived credentials or unsafe permission scopes.',
+    approach: 'RotateOps uses Auth0 for AI Agents and Token Vault patterns so delegated access can be granted safely, with controlled scopes and auditable action flows.',
+    status: 'In progress — preparing for submission to Authorized to Act: Auth0 for AI Agents',
   },
   {
-    name: 'Gradient AI',
-    event: 'DigitalOcean Hackathon',
-    desc: 'AI deployment assistant that surfaces infrastructure optimizations via CLI.',
-    stack: ['DigitalOcean API', 'Python', 'OpenAI', 'React'],
-    github: 'https://github.com/Amsan5941',
-    problem: 'Infrastructure cost and performance issues are buried in dashboards most developers never open. The goal was a CLI tool that queries your DigitalOcean stack and surfaces concrete, actionable recommendations in plain English.',
-    approach: 'Python CLI fetches current droplet, database, and load balancer state via the DO API. An OpenAI-powered reasoning layer compares the state against cost and performance heuristics and generates prioritized recommendations with one-command fixes.',
-    status: 'In progress — API ingestion and recommendation engine complete, CLI UX in polish phase',
+    name: 'Smart Incident Root Cause Analyzer',
+    event: 'DigitalOcean Gradient AI Hackathon',
+    desc: 'Incident intelligence tool that accelerates root-cause analysis from logs and telemetry signals.',
+    stack: ['Python', 'RAG', 'Elasticsearch', 'LLMs'],
+    github: 'https://devpost.com/software/smart-incident-root-cause-analyzer?ref_content=user-portfolio&ref_feature=in_progress',
+    problem: 'SRE teams spend too much time manually correlating logs, alerts, and traces before identifying likely causes during incidents.',
+    approach: 'The system aggregates incident context, performs semantic retrieval over operational data, and proposes ranked root-cause hypotheses with supporting evidence.',
+    status: 'In progress — improving signal correlation and confidence scoring',
+  },
+  {
+    name: 'LiveLens',
+    event: 'Gemini Live Agent Challenge',
+    desc: 'Real-time development visibility tool for surfacing delivery, quality, and collaboration signals.',
+    stack: ['TypeScript', 'React', 'Node.js', 'Analytics'],
+    github: 'https://devpost.com/software/livelens-cd6yl5?ref_content=user-portfolio&ref_feature=in_progress',
+    problem: 'Teams often discover delivery bottlenecks late because engineering signals are fragmented across tools and dashboards.',
+    approach: 'LiveLens unifies key engineering signals into a live view, helping teams spot blockers early and act on trends before they affect delivery.',
+    status: 'In progress — polishing insights dashboard and event pipeline',
   },
 ]
 
@@ -241,7 +251,7 @@ function HackathonGrid({ projects }: { projects: HackathonProject[] }) {
 
   return (
     <div className="space-y-3">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-5 gap-5">
         {projects.map((proj, i) => {
           const isActive = active === proj.name
           return (
@@ -249,10 +259,10 @@ function HackathonGrid({ projects }: { projects: HackathonProject[] }) {
               key={proj.name}
               {...slideUp(0.05 + i * 0.06)}
               onClick={() => toggle(proj.name)}
-              className={`hackathon-card rounded-xl p-5 flex flex-col gap-3 select-none${isActive ? ' is-active' : ''}`}
+              className={`hackathon-card rounded-xl p-6 min-h-[240px] flex flex-col gap-3 select-none${isActive ? ' is-active' : ''}`}
             >
               <div className="flex items-center justify-between gap-2">
-                <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded self-start"
+                <span className="text-[10px] font-semibold px-2.5 py-0.5 rounded self-start whitespace-nowrap"
                   style={{ background: 'rgba(16,185,129,0.1)', color: '#10b981', border: '1px solid rgba(16,185,129,0.25)' }}>
                   {proj.event}
                 </span>
@@ -312,7 +322,7 @@ function HackathonGrid({ projects }: { projects: HackathonProject[] }) {
                       onMouseLeave={e => (e.currentTarget.style.color = '')}
                       onClick={e => e.stopPropagation()}
                     >
-                      GitHub <ExternalIcon />
+                      Project Page <ExternalIcon />
                     </a>
                   )}
                 </div>
@@ -329,12 +339,21 @@ function HackathonGrid({ projects }: { projects: HackathonProject[] }) {
 export default function Projects() {
   const [activeRepo, setActiveRepo] = useState<string | null>(null)
   const [hoveredPin, setHoveredPin] = useState<string | null>(null)
+  const [isLightMode, setIsLightMode] = useState(false)
   const [repos, setRepos] = useState<RepoEntry[]>(ALL_REPOS)
   const [pinned, setPinned] = useState<PinnedProject[]>(PINNED)
   const [reposLoading, setReposLoading] = useState(true)
   const [selectedPin, setSelectedPin] = useState<PinnedProject | null>(null)
   const pinnedGridRef = useRef<HTMLDivElement>(null)
   const [sidebarMaxH, setSidebarMaxH] = useState<number | undefined>(undefined)
+
+  useEffect(() => {
+    const update = () => setIsLightMode(document.body.classList.contains('light'))
+    update()
+    const mo = new MutationObserver(update)
+    mo.observe(document.body, { attributes: true, attributeFilter: ['class'] })
+    return () => mo.disconnect()
+  }, [])
 
   useEffect(() => {
     fetch('/.netlify/functions/github-repos')
@@ -400,13 +419,28 @@ export default function Projects() {
             {/* Skeleton shimmer while live data loads */}
             {reposLoading && (
               <div className="absolute inset-0 z-10 flex flex-col gap-3 p-4 rounded-xl"
-                style={{ background: 'rgba(10,10,22,0.85)' }}>
+                style={{
+                  background: isLightMode ? 'rgba(255,255,255,0.92)' : 'rgba(10,10,22,0.85)',
+                }}>
                 {[...Array(5)].map((_, i) => (
                   <div key={i} className="animate-pulse flex flex-col gap-2 py-2"
-                    style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                    <div className="h-3 rounded w-2/3" style={{ background: 'rgba(255,255,255,0.07)' }} />
-                    <div className="h-2 rounded w-full" style={{ background: 'rgba(255,255,255,0.04)' }} />
-                    <div className="h-2 rounded w-1/3" style={{ background: 'rgba(255,255,255,0.04)' }} />
+                    style={{
+                      borderBottom: isLightMode
+                        ? '1px solid rgba(15,23,42,0.08)'
+                        : '1px solid rgba(255,255,255,0.05)',
+                    }}>
+                    <div
+                      className="h-3 rounded w-2/3"
+                      style={{ background: isLightMode ? 'rgba(15,23,42,0.10)' : 'rgba(255,255,255,0.07)' }}
+                    />
+                    <div
+                      className="h-2 rounded w-full"
+                      style={{ background: isLightMode ? 'rgba(15,23,42,0.07)' : 'rgba(255,255,255,0.04)' }}
+                    />
+                    <div
+                      className="h-2 rounded w-1/3"
+                      style={{ background: isLightMode ? 'rgba(15,23,42,0.07)' : 'rgba(255,255,255,0.04)' }}
+                    />
                   </div>
                 ))}
               </div>
@@ -624,7 +658,15 @@ export default function Projects() {
             <span className="font-mono text-[10px]" style={{ color: '#64748b' }}>· click any card for details</span>
           </div>
 
-          <HackathonGrid projects={HACKATHON_PROJECTS} />
+          <div
+            style={{
+              width: '100vw',
+              marginLeft: 'calc(50% - 50vw)',
+              paddingInline: 'clamp(1rem, 4vw, 2.5rem)',
+            }}
+          >
+            <HackathonGrid projects={HACKATHON_PROJECTS} />
+          </div>
         </motion.div>
 
         {/* Bottom CTA */}
