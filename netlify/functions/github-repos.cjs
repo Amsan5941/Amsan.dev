@@ -18,6 +18,80 @@ function truncateText(text, maxChars) {
   return `${text.slice(0, maxChars)}...`
 }
 
+function cleanMarkdown(md = '') {
+  return md
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/`[^`]*`/g, ' ')
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')
+    .replace(/\[[^\]]*\]\([^)]*\)/g, ' ')
+    .replace(/^#+\s+/gm, '')
+    .replace(/\r/g, ' ')
+    .replace(/\n+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+function extractReadmeSentences(readme = '') {
+  const cleaned = cleanMarkdown(readme)
+  if (!cleaned) return []
+  return cleaned
+    .split(/(?<=[.!?])\s+/)
+    .map(s => s.trim())
+    .filter(s => s.length >= 30 && s.length <= 260)
+    .slice(0, 6)
+}
+
+function fallbackDesc(context) {
+  if (context.githubDescription && context.githubDescription.trim().length > 20) {
+    return truncateText(context.githubDescription.trim(), 200)
+  }
+
+  const fromReadme = context.readmeSentences[0]
+  if (fromReadme) return truncateText(fromReadme, 200)
+
+  const stack = context.topics?.length ? context.topics.slice(0, 3).join(', ') : context.language
+  return `${context.name} is a ${context.language} project focused on practical workflows using ${stack}.`
+}
+
+function fallbackHowItWorks(context) {
+  const fromReadme = context.readmeSentences[1]
+  if (fromReadme) return truncateText(fromReadme, 240)
+
+  if (context.topics?.length) {
+    return `It works by combining ${context.topics.slice(0, 4).join(', ')} into a single end-to-end workflow.`
+  }
+
+  return `It is implemented in ${context.language} with a modular architecture for iteration and extension.`
+}
+
+function parseModelJson(rawContent) {
+  if (!rawContent) return null
+
+  const trimmed = rawContent.trim()
+  try {
+    return JSON.parse(trimmed)
+  } catch {}
+
+  const noFence = trimmed
+    .replace(/^```json\s*/i, '')
+    .replace(/^```\s*/i, '')
+    .replace(/```\s*$/i, '')
+
+  try {
+    return JSON.parse(noFence)
+  } catch {}
+
+  const start = noFence.indexOf('{')
+  const end = noFence.lastIndexOf('}')
+  if (start !== -1 && end !== -1 && end > start) {
+    try {
+      return JSON.parse(noFence.slice(start, end + 1))
+    } catch {}
+  }
+
+  return null
+}
+
 function timeAgo(dateStr) {
   const diff = Math.floor((Date.now() - new Date(dateStr)) / 1000)
   if (diff < 86400)    return 'today'
@@ -81,7 +155,7 @@ function defaultImpactLine(project) {
 }
 
 async function buildPinnedDescriptions(pinned, githubToken, openAiKey) {
-  if (!openAiKey || pinned.length === 0) return pinned
+  if (pinned.length === 0) return pinned
 
   const contexts = await Promise.all(
     pinned.map(async project => ({
@@ -94,6 +168,25 @@ async function buildPinnedDescriptions(pinned, githubToken, openAiKey) {
       readme: await fetchReadme(OWNER, project.name, githubToken),
     }))
   )
+
+  contexts.forEach(c => {
+    c.readmeSentences = extractReadmeSentences(c.readme)
+  })
+
+  const contextByName = new Map(contexts.map(c => [c.name, c]))
+
+  if (!openAiKey) {
+    return pinned.map(project => {
+      const context = contextByName.get(project.name)
+      if (!context) return project
+      return {
+        ...project,
+        desc: fallbackDesc(context),
+        howItWorks: fallbackHowItWorks(context),
+        impactLine: defaultImpactLine(project),
+      }
+    })
+  }
 
   const promptData = contexts.map(c => ({
     name: c.name,
@@ -119,11 +212,11 @@ async function buildPinnedDescriptions(pinned, githubToken, openAiKey) {
         messages: [
           {
             role: 'system',
-            content: 'You write concise portfolio descriptions for software repositories. Use only provided facts. Do not invent metrics, users, awards, or deployment claims. Return strict JSON only.',
+            content: 'You write strong portfolio copy for software repositories. Use only provided facts. Do not invent metrics, users, awards, or deployment claims. Return strict JSON only.',
           },
           {
             role: 'user',
-            content: `For each project, produce one high-signal description sentence (max 180 chars) and a concise impact line from available facts.\n\nReturn JSON object with this exact shape:\n{\n  "projects": [\n    { "name": "repo-name", "desc": "...", "impactLine": "..." }\n  ]\n}\n\nProject data:\n${JSON.stringify(promptData)}`,
+            content: `For each project, produce:\n1) desc: what the project does in 1 sentence (max 210 chars)\n2) howItWorks: how it works technically in 1 sentence (max 240 chars)\n3) impactLine: concise fact-only line using stars/forks/language when useful\n\nStyle requirements:\n- Be specific and concrete, avoid vague terms like \"platform\" or \"solution\" unless qualified.\n- Include implementation details (pipeline, API, agent flow, architecture, model usage, etc.) when available.\n- Never invent outcomes or metrics.\n\nReturn JSON object with this exact shape:\n{\n  "projects": [\n    { "name": "repo-name", "desc": "...", "howItWorks": "...", "impactLine": "..." }\n  ]\n}\n\nProject data:\n${JSON.stringify(promptData)}`,
           },
         ],
       }),
@@ -135,14 +228,31 @@ async function buildPinnedDescriptions(pinned, githubToken, openAiKey) {
     const rawContent = data?.choices?.[0]?.message?.content
     if (!rawContent) return pinned
 
-    const parsed = JSON.parse(rawContent)
+    const parsed = parseModelJson(rawContent)
+    if (!parsed || !Array.isArray(parsed.projects)) {
+      return pinned.map(project => {
+        const context = contextByName.get(project.name)
+        if (!context) return project
+        return {
+          ...project,
+          desc: fallbackDesc(context),
+          howItWorks: fallbackHowItWorks(context),
+          impactLine: defaultImpactLine(project),
+        }
+      })
+    }
+
     const byName = new Map((parsed.projects || []).map(p => [p.name, p]))
 
     return pinned.map(project => {
       const ai = byName.get(project.name)
+      const context = contextByName.get(project.name)
       const nextDesc = typeof ai?.desc === 'string' && ai.desc.trim().length > 0
-        ? truncateText(ai.desc.trim(), 180)
-        : project.desc
+        ? truncateText(ai.desc.trim(), 210)
+        : context ? fallbackDesc(context) : project.desc
+      const nextHow = typeof ai?.howItWorks === 'string' && ai.howItWorks.trim().length > 0
+        ? truncateText(ai.howItWorks.trim(), 240)
+        : context ? fallbackHowItWorks(context) : ''
       const nextImpact = typeof ai?.impactLine === 'string' && ai.impactLine.trim().length > 0
         ? truncateText(ai.impactLine.trim(), 110)
         : defaultImpactLine(project)
@@ -150,14 +260,20 @@ async function buildPinnedDescriptions(pinned, githubToken, openAiKey) {
       return {
         ...project,
         desc: nextDesc,
+        howItWorks: nextHow,
         impactLine: nextImpact,
       }
     })
   } catch {
-    return pinned.map(project => ({
-      ...project,
-      impactLine: defaultImpactLine(project),
-    }))
+    return pinned.map(project => {
+      const context = contextByName.get(project.name)
+      return {
+        ...project,
+        desc: context ? fallbackDesc(context) : project.desc,
+        howItWorks: context ? fallbackHowItWorks(context) : '',
+        impactLine: defaultImpactLine(project),
+      }
+    })
   }
 }
 

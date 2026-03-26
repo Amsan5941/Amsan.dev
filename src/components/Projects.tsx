@@ -22,6 +22,7 @@ interface PinnedProject {
   language: string
   langColor: string
   desc: string
+  howItWorks?: string
   impactLine: string
   stack: string[]
   stars: number
@@ -703,7 +704,7 @@ export default function Projects() {
                 <span className="font-mono text-[10px] font-bold uppercase tracking-widest" style={{ color: '#f59e0b' }}>
                   pinned project
                 </span>
-                <h3 className="font-display font-bold text-xl mt-1" style={{ color: '#f1f5f9' }}>
+                <h3 className="font-display font-bold text-xl mt-1" style={{ color: 'var(--text-primary)' }}>
                   {selectedPin.name}
                 </h3>
                 {selectedPin.impactLine && (
@@ -717,6 +718,18 @@ export default function Projects() {
               <p className="text-sm leading-relaxed mb-5" style={{ color: '#94a3b8' }}>
                 {selectedPin.desc}
               </p>
+
+              {/* How it works */}
+              {selectedPin.howItWorks && (
+                <div className="mb-5">
+                  <p className="font-mono text-[10px] uppercase tracking-widest mb-2" style={{ color: '#475569' }}>
+                    How It Works
+                  </p>
+                  <p className="text-sm leading-relaxed" style={{ color: '#cbd5e1' }}>
+                    {selectedPin.howItWorks}
+                  </p>
+                </div>
+              )}
 
               {/* Languages */}
               {(selectedPin.languages?.length ?? 0) > 0 && (
