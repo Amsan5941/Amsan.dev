@@ -672,32 +672,43 @@ export default function Projects() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 40 }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
-              className="project-modal-sheet"
               style={{
-                position: 'fixed', left: '50%', top: '50%',
-                transform: 'translate(-50%, -50%)',
+                position: 'fixed',
+                inset: 0,
                 zIndex: 501,
-                width: 'min(640px, calc(100vw - 32px))',
-                maxHeight: 'calc(100vh - 64px)',
-                overflowY: 'auto',
-                border: '1px solid rgba(30,58,138,0.4)',
-                borderRadius: '20px',
-                boxShadow: '0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(30,58,138,0.2)',
-                padding: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '16px',
+                pointerEvents: 'none',
               }}
             >
-              {/* Close */}
-              <button
-                onClick={() => setSelectedPin(null)}
+              <div
+                className="project-modal-sheet"
                 style={{
-                  position: 'absolute', top: 16, right: 16,
-                  background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
-                  borderRadius: '8px', width: 32, height: 32, cursor: 'pointer',
-                  color: '#94a3b8', fontSize: 16, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  position: 'relative',
+                  width: 'min(640px, calc(100vw - 32px))',
+                  maxHeight: 'calc(100vh - 64px)',
+                  overflowY: 'auto',
+                  border: '1px solid rgba(30,58,138,0.4)',
+                  borderRadius: '20px',
+                  boxShadow: '0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(30,58,138,0.2)',
+                  padding: '32px',
+                  pointerEvents: 'auto',
                 }}
               >
-                ✕
-              </button>
+                {/* Close */}
+                <button
+                  onClick={() => setSelectedPin(null)}
+                  style={{
+                    position: 'absolute', top: 16, right: 16,
+                    background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
+                    borderRadius: '8px', width: 32, height: 32, cursor: 'pointer',
+                    color: '#94a3b8', fontSize: 16, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  }}
+                >
+                  ✕
+                </button>
 
               {/* Header */}
               <div className="mb-5">
@@ -774,6 +785,7 @@ export default function Projects() {
                     Live Demo <ExternalIcon />
                   </a>
                 )}
+              </div>
               </div>
             </motion.div>
           </>
