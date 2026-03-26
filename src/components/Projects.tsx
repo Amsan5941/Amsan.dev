@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 /* ── Types ─────────────────────────────────────────────── */
@@ -332,6 +332,8 @@ export default function Projects() {
   const [pinned, setPinned] = useState<PinnedProject[]>(PINNED)
   const [reposLoading, setReposLoading] = useState(true)
   const [selectedPin, setSelectedPin] = useState<PinnedProject | null>(null)
+  const pinnedGridRef = useRef<HTMLDivElement>(null)
+  const [sidebarMaxH, setSidebarMaxH] = useState<number | undefined>(undefined)
 
   useEffect(() => {
     fetch('/.netlify/functions/github-repos')
@@ -350,6 +352,14 @@ export default function Projects() {
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setSelectedPin(null) }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
+  useEffect(() => {
+    const el = pinnedGridRef.current
+    if (!el) return
+    const obs = new ResizeObserver(([entry]) => setSidebarMaxH(entry.contentRect.height))
+    obs.observe(el)
+    return () => obs.disconnect()
   }, [])
 
   return (
@@ -383,6 +393,7 @@ export default function Projects() {
             className="repo-sidebar-bg rounded-xl overflow-hidden flex flex-col relative"
             style={{
               border: '1px solid var(--card-border)',
+              maxHeight: sidebarMaxH,
             }}
           >
             {/* Skeleton shimmer while live data loads */}
@@ -405,14 +416,7 @@ export default function Projects() {
               style={{ borderColor: 'var(--card-border)' }}
             >
               <span className="label" style={{ color: '#94a3b8' }}>Repositories</span>
-              <span
-                className="font-mono text-xs px-2 py-0.5 rounded-full"
-                style={{
-                  background: 'rgba(30,58,138,0.3)',
-                  color: '#93c5fd',
-                  border: '1px solid rgba(96,165,250,0.3)',
-                }}
-              >
+              <span className="badge-role font-mono text-xs px-2 py-0.5 rounded-full">
                 {repos.length}
               </span>
             </div>
@@ -498,8 +502,8 @@ export default function Projects() {
             </div>
           </div>
 
-          {/* ── RIGHT: 2×2 pinned cards ───────────────────── */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 content-start">
+          {/* ── RIGHT: 2×3 pinned cards ───────────────────── */}
+          <div ref={pinnedGridRef} className="grid grid-cols-1 sm:grid-cols-2 gap-4 content-start">
             {pinned.map((proj, i) => (
               <motion.article
                 key={proj.name}
