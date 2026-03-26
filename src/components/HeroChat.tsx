@@ -62,6 +62,15 @@ export default function HeroChat() {
         <span className="hero-proof-pill">30% infrastructure cost reduction</span>
       </motion.div>
 
+      <motion.p
+        {...fade(0.57)}
+        className="text-center font-medium mb-8"
+        style={{ fontSize: 'clamp(13px, 1.2vw, 15px)', maxWidth: '700px', color: 'var(--text-muted)', lineHeight: 1.75 }}
+      >
+        Targeting SRE, Platform Engineering, or AI Infrastructure roles — teams that run Kubernetes at scale,
+        build internal developer platforms, or take LLM pipelines from prototype to production.
+      </motion.p>
+
       <motion.div {...fade(0.6)} className="flex flex-wrap items-center justify-center gap-4 mb-14">
         <a href="#projects" className="btn-primary">
           View Projects

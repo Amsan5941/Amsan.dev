@@ -51,6 +51,7 @@ const QUERY = `
         nodes {
           ... on Repository {
             name
+            isFork
             description
             stargazerCount
             forkCount
@@ -129,18 +130,20 @@ exports.handler = async function (event) {
     // Build pinned set for flagging repos
     const pinnedNames = new Set(pinnedItems.nodes.map(n => n.name))
 
-    const pinned = pinnedItems.nodes.map(r => ({
-      name:     r.name,
-      slug:     r.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-      language: r.primaryLanguage?.name ?? 'Unknown',
-      langColor: r.primaryLanguage?.color ?? '#94a3b8',
-      desc:     r.description ?? '',
-      stars:    r.stargazerCount,
-      forks:    r.forkCount,
-      github:   r.url,
-      demo:     r.homepageUrl || null,
-      stack:    r.repositoryTopics.nodes.map(n => formatTopic(n.topic.name)).slice(0, 5),
-    }))
+    const pinned = pinnedItems.nodes
+      .filter(r => !r.isFork)
+      .map(r => ({
+        name:      r.name,
+        slug:      r.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+        language:  r.primaryLanguage?.name ?? 'Unknown',
+        langColor: r.primaryLanguage?.color ?? '#94a3b8',
+        desc:      r.description ?? '',
+        stars:     r.stargazerCount,
+        forks:     r.forkCount,
+        github:    r.url,
+        demo:      r.homepageUrl || null,
+        stack:     r.repositoryTopics.nodes.map(n => formatTopic(n.topic.name)).slice(0, 5),
+      }))
 
     // If no topics, fall back to primary language as the only stack badge
     pinned.forEach(p => {

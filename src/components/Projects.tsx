@@ -310,16 +310,19 @@ export default function Projects() {
   const [hoveredPin, setHoveredPin] = useState<string | null>(null)
   const [repos, setRepos] = useState<RepoEntry[]>(ALL_REPOS)
   const [pinned, setPinned] = useState<PinnedProject[]>(PINNED)
+  const [reposLoading, setReposLoading] = useState(true)
 
   useEffect(() => {
     fetch('/.netlify/functions/github-repos')
       .then(r => r.json())
       .then(data => {
-        if (data.error || !data.repos || !data.pinned) return
-        setRepos(data.repos)
-        setPinned(data.pinned)
+        if (!data.error && data.repos && data.pinned) {
+          setRepos(data.repos)
+          setPinned(data.pinned)
+        }
       })
       .catch(() => {/* keep hardcoded fallback */})
+      .finally(() => setReposLoading(false))
   }, [])
 
   return (
@@ -350,13 +353,27 @@ export default function Projects() {
         >
           {/* ── LEFT: Repo sidebar ────────────────────────── */}
           <div
-            className="rounded-xl overflow-hidden flex flex-col"
+            className="rounded-xl overflow-hidden flex flex-col relative"
             style={{
               background: 'rgba(10,10,22,0.85)',
               border: '1px solid var(--card-border)',
               maxHeight: 540,
             }}
           >
+            {/* Skeleton shimmer while live data loads */}
+            {reposLoading && (
+              <div className="absolute inset-0 z-10 flex flex-col gap-3 p-4 rounded-xl"
+                style={{ background: 'rgba(10,10,22,0.85)' }}>
+                {[...Array(5)].map((_, i) => (
+                  <div key={i} className="animate-pulse flex flex-col gap-2 py-2"
+                    style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                    <div className="h-3 rounded w-2/3" style={{ background: 'rgba(255,255,255,0.07)' }} />
+                    <div className="h-2 rounded w-full" style={{ background: 'rgba(255,255,255,0.04)' }} />
+                    <div className="h-2 rounded w-1/3" style={{ background: 'rgba(255,255,255,0.04)' }} />
+                  </div>
+                ))}
+              </div>
+            )}
             {/* Sidebar header */}
             <div
               className="px-4 py-3 flex items-center justify-between border-b"

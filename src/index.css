@@ -20,18 +20,18 @@
 }
 
 body.light {
-  --bg-primary: #ffffff;
-  --bg-surface: #ffffff;
-  --bg-elevated: #f5f5f5;
-  --bg-alt: #f8fafc;
-  --text-primary: #000000;
-  --text-secondary: #333333;
-  --text-muted: #666666;
-  --card-border: rgba(0,0,0,0.08);
-  --card-shadow: 0 4px 24px rgba(0,0,0,0.08);
-  --navbar-bg: rgba(255,255,255,0.95);
-  --accent-primary: #1e3a8a;
-  --accent-secondary: #f59e0b;
+  --bg-primary:   #faf8f4;
+  --bg-surface:   #f5f2ed;
+  --bg-elevated:  #edeae4;
+  --bg-alt:       #f8f5f0;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted:   #64748b;
+  --card-border:  rgba(15,23,42,0.10);
+  --card-shadow:  0 4px 24px rgba(15,23,42,0.08);
+  --navbar-bg:    rgba(250,248,244,0.92);
+  --accent-primary:   #1e3a8a;
+  --accent-secondary: #d97706;
 }
 
 /* ── Reset ───────────────────────────────────────────────── */
@@ -74,9 +74,9 @@ body {
 body.light {
   background-color: var(--bg-primary);
   background-image:
-    radial-gradient(circle at 14% 24%, rgba(30,58,138,0.14), transparent 50%),
-    radial-gradient(circle at 86% 34%, rgba(217,119,6,0.14), transparent 54%),
-    linear-gradient(105deg, #f8fbff 0%, #eef4ff 42%, #fff5ec 76%, #fff1e6 100%);
+    radial-gradient(circle at 14% 24%, rgba(30,58,138,0.07), transparent 50%),
+    radial-gradient(circle at 86% 34%, rgba(217,119,6,0.09), transparent 54%),
+    linear-gradient(105deg, #faf8f4 0%, #f2eeea 50%, #faf7f2 100%);
 }
 
 ::selection { background: rgba(30,58,138,0.28); color: var(--text-primary); }
@@ -84,7 +84,7 @@ body.light {
 /* ── Navbar ──────────────────────────────────────────────── */
 .navbar {
   position: fixed;
-  top: 0;
+  top: 36px; /* offset for availability banner */
   left: 0;
   right: 0;
   z-index: 100;
@@ -282,7 +282,7 @@ body.light .navbar-logo-circle {
 .navbar-drawer {
   display: none;
   position: fixed;
-  top: 80px;
+  top: 116px; /* 36px banner + 80px navbar */
   left: 0;
   right: 0;
   background: var(--bg-primary);
@@ -776,6 +776,33 @@ body.light .btn-secondary:hover {
   color: var(--text-secondary);
   background: rgba(255,255,255,0.03);
 }
+
+body.light .hero-proof-pill {
+  background: rgba(15,23,42,0.05);
+  border-color: rgba(15,23,42,0.12);
+  color: var(--text-secondary);
+}
+
+/* ── Company logo pill ───────────────────────────────── */
+.company-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+  background: var(--bg-elevated);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+.company-pill img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+body.light .company-pill img { filter: grayscale(1) brightness(0.3); }
+body:not(.light) .company-pill img { filter: grayscale(1) brightness(1.8); }
 
 @media (max-width: 768px) {
   .navbar-resume-btn {
