@@ -38,7 +38,7 @@ export default function Testimonials() {
 
             {/* LinkedIn Recommendation — Lorand Sari */}
             <motion.a
-              href="https://www.linkedin.com/in/amsan-naheswaran-243407231/"
+              href="https://www.linkedin.com/in/amsan-naheswaran-243407231/details/recommendations/"
               target="_blank"
               rel="noopener noreferrer"
               {...slideUp(0.08)}
@@ -180,7 +180,7 @@ export default function Testimonials() {
                   1ST PLACE – All Intern Teams
                 </span>
                 <a
-                  href="https://www.linkedin.com/in/amsan-naheswaran-243407231/"
+                  href="https://www.linkedin.com/in/amsan-naheswaran-243407231/details/recommendations/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded"

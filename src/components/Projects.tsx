@@ -393,7 +393,7 @@ export default function Projects() {
             className="repo-sidebar-bg rounded-xl overflow-hidden flex flex-col relative"
             style={{
               border: '1px solid var(--card-border)',
-              maxHeight: sidebarMaxH ? sidebarMaxH - 10 : undefined,
+              maxHeight: sidebarMaxH ? sidebarMaxH - 5 : undefined,
             }}
           >
             {/* Skeleton shimmer while live data loads */}
@@ -616,7 +616,7 @@ export default function Projects() {
               <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#10b981', boxShadow: '0 0 6px #10b98166' }} />
               <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#10b981' }}>Currently Building</span>
             </div>
-            <span className="font-mono text-[10px] px-2 py-0.5 rounded-full"
+            <span className="hackathon-season-badge font-mono text-[10px] px-2 py-0.5 rounded-full"
               style={{ background: 'rgba(16,185,129,0.1)', color: '#6ee7b7', border: '1px solid rgba(16,185,129,0.25)' }}>
               Hackathon Season 2025
             </span>

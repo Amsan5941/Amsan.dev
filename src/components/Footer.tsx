@@ -37,7 +37,7 @@ export default function Footer() {
           </div>
 
           <div className="flex items-center gap-4 flex-wrap">
-            <span className="label text-muted">Built with React &amp; Tailwind</span>
+            <span className="label text-muted">Amsan Naheswaran</span>
             <span className="text-muted">·</span>
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}

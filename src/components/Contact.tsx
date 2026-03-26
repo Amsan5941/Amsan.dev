@@ -56,6 +56,49 @@ const METHODS = [
 
 export default function Contact() {
   const [hovered, setHovered] = useState<string | null>(null)
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [message, setMessage] = useState('')
+  const [sending, setSending] = useState(false)
+  const [sendState, setSendState] = useState<'idle' | 'success' | 'error'>('idle')
+  const [sendMsg, setSendMsg] = useState('')
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (!name.trim() || !email.trim() || !message.trim()) {
+      setSendState('error')
+      setSendMsg('Please fill out name, email, and message.')
+      return
+    }
+
+    try {
+      setSending(true)
+      setSendState('idle')
+      setSendMsg('')
+
+      const res = await fetch('/.netlify/functions/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name.trim(), email: email.trim(), message: message.trim() }),
+      })
+      const data = await res.json()
+
+      if (!res.ok || !data.ok) {
+        throw new Error(data?.error || 'Unable to send message right now.')
+      }
+
+      setSendState('success')
+      setSendMsg('Message sent successfully. I will get back to you soon.')
+      setName('')
+      setEmail('')
+      setMessage('')
+    } catch (err) {
+      setSendState('error')
+      setSendMsg(err instanceof Error ? err.message : 'Unable to send message right now.')
+    } finally {
+      setSending(false)
+    }
+  }
 
   return (
     <section id="contact" className="relative z-10 section-pad">
@@ -134,6 +177,79 @@ export default function Contact() {
             </motion.a>
           ))}
         </div>
+
+        <motion.form
+          {...slideUp(0.2)}
+          onSubmit={onSubmit}
+          className="dark-card rounded-2xl p-6 md:p-7 mb-8"
+          style={{ border: '1px solid var(--card-border)' }}
+        >
+          <div className="mb-4">
+            <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: '#d4af37' }}>
+              Send Direct Email
+            </p>
+            <p className="dc-body text-sm mt-1">Use this form to send a message directly to amsan5941@gmail.com.</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-4 mb-4">
+            <input
+              value={name}
+              onChange={e => setName(e.target.value)}
+              placeholder="Your name"
+              className="rounded-xl px-4 py-3 text-sm"
+              style={{
+                background: 'var(--bg-elevated)',
+                border: '1px solid var(--card-border)',
+                color: 'var(--text-primary)',
+              }}
+            />
+            <input
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              placeholder="Your email"
+              type="email"
+              className="rounded-xl px-4 py-3 text-sm"
+              style={{
+                background: 'var(--bg-elevated)',
+                border: '1px solid var(--card-border)',
+                color: 'var(--text-primary)',
+              }}
+            />
+          </div>
+
+          <textarea
+            value={message}
+            onChange={e => setMessage(e.target.value)}
+            placeholder="Your message"
+            rows={5}
+            className="w-full rounded-xl px-4 py-3 text-sm mb-4"
+            style={{
+              background: 'var(--bg-elevated)',
+              border: '1px solid var(--card-border)',
+              color: 'var(--text-primary)',
+              resize: 'vertical',
+            }}
+          />
+
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              type="submit"
+              disabled={sending}
+              className="btn-primary"
+              style={{ opacity: sending ? 0.7 : 1 }}
+            >
+              {sending ? 'Sending...' : 'Send Message'}
+            </button>
+            {sendState !== 'idle' && (
+              <span
+                className="font-mono text-[11px]"
+                style={{ color: sendState === 'success' ? '#10b981' : '#ef4444' }}
+              >
+                {sendMsg}
+              </span>
+            )}
+          </div>
+        </motion.form>
 
         {/* Status bar */}
         <motion.div {...slideUp(0.28)} className="flex flex-wrap items-center gap-3">

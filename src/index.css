@@ -42,6 +42,12 @@ body.light .pinned-project-link {
   color: #0b0b0b;
 }
 
+body.light .hackathon-season-badge {
+  background: rgba(5, 150, 105, 0.14) !important;
+  color: #065f46 !important;
+  border-color: rgba(5, 150, 105, 0.45) !important;
+}
+
 /* ── Reset ───────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
