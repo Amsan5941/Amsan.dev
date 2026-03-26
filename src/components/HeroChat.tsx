@@ -1,11 +1,15 @@
 import { motion } from 'framer-motion'
-import profileImg from './images/Gemini_Generated_Image_tki0bptki0bptki0.png'
+import profileWebP from './images/profile-image.webp'
+import profilePNG from './images/profile-image.png'
 
 const fade = (delay: number) => ({
   initial: { opacity: 0, y: 30 },
   animate: { opacity: 1, y: 0 },
   transition: { delay, duration: 0.6, ease: 'easeOut' as const },
 })
+
+// Inline blur placeholder — shows instantly while image loads
+const BLUR_PLACEHOLDER = 'data:image/webp;base64,UklGRqYBAABXRUJQVlA4IJoBAACwCACdASooACgAPtFkqVAoJaOipzgJIQAaCUAYfWYywA0tDPJqCnTH/MdEYqlXMIZHnBL21Lgjx3xy+0rWWmIp9mIhahAseaGcCIJdKkAA9wgWAFB/KOfyV2WsS3eTktHKG8b7V1zWaCTQlWI9f8Xt71U1h0mfH7ckq1eOOQQHmoUAHjc/b4wQMcug/P+9ZBuJyAiMoClvuIdcuc3gE5HWsCQE5YEjve4K4PZNKwEFh/192OF4Lz1iAhP64yC0IRHAHoNq/YA2m11VwU9E+pQf0jlBByBei3mEYFEqx0d5H5WnXnz7LLwPpvv9ZEQOLwadOm8War7UB3NiVHndtpduATTeWROjmmXgJR2zXVip6tiTsdDoIr5OGj/Fs2735dD23hE8JHhOETIGRKJKiTMupyQ9yBNWxiZBan+m4qutD3w9Gd7HvmBEi2djk70SNZKZgCos2hj8inYseyb/0wTC6zsqaT6ezMyGzkWV3E+UvDRqHI16cR3dKmmD4SoJf4hlIKy43Vua4BTmf5tYsBct1PbO7lCD1AAAAA=='
 
 export default function HeroChat() {
   return (
@@ -20,14 +24,20 @@ export default function HeroChat() {
           boxShadow: '0 0 40px rgba(30,58,138,0.25), 0 0 80px rgba(30,58,138,0.1)',
         }}
       >
-        <img
-          src={profileImg}
-          alt="Amsan Naheswaran"
-          className="w-full h-full object-cover rounded-full"
-          fetchPriority="high"
-          loading="eager"
-          decoding="sync"
-        />
+        <picture>
+          <source srcSet={profileWebP} type="image/webp" />
+          <img
+            src={profilePNG}
+            alt="Amsan Naheswaran"
+            className="w-full h-full object-cover rounded-full"
+            style={{ backgroundImage: `url('${BLUR_PLACEHOLDER}')`, backgroundSize: 'cover' }}
+            fetchPriority="high"
+            loading="eager"
+            decoding="async"
+            width={336}
+            height={336}
+          />
+        </picture>
         <div
           className="absolute inset-0 rounded-full animate-ping"
           style={{
