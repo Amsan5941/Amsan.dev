@@ -393,7 +393,7 @@ export default function Projects() {
             className="repo-sidebar-bg rounded-xl overflow-hidden flex flex-col relative"
             style={{
               border: '1px solid var(--card-border)',
-              maxHeight: sidebarMaxH ? sidebarMaxH - 20 : undefined,
+              maxHeight: sidebarMaxH ? sidebarMaxH - 10 : undefined,
             }}
           >
             {/* Skeleton shimmer while live data loads */}
@@ -532,10 +532,9 @@ export default function Projects() {
                       href={proj.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-mono text-sm font-semibold truncate transition-colors"
-                      style={{ color: 'var(--text-primary)' }}
+                      className="pinned-project-link font-mono text-sm font-semibold truncate transition-colors"
                       onMouseEnter={e => (e.currentTarget.style.color = '#f59e0b')}
-                      onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-primary)')}
+                      onMouseLeave={e => (e.currentTarget.style.color = '')}
                     >
                       {proj.name}
                     </a>

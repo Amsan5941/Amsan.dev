@@ -16,7 +16,7 @@ const CARDS = [
     title: 'Experience',
     subtitle: '4 Production Co-ops',
     description:
-      'Built AI systems at PointClickCare, migrated cloud infra at Celestica, designed data pipelines at Weston Foods, and engineered banking platforms at TD Digital Banking.',
+      'Built AI systems at PointClickCare, migrated cloud infra at Celestica, designed data pipelines at Weston Foods, and shipped internal tools at Avolta.',
     detail: '3+ years',
     color: '#f59e0b',
   },
