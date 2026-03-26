@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 /* ── Types ─────────────────────────────────────────────── */
+interface LangEntry { name: string; color: string }
+
 interface RepoEntry {
   name: string
   language: string
@@ -10,6 +12,8 @@ interface RepoEntry {
   updated: string
   stars: number
   pinned: boolean
+  url?: string
+  languages?: LangEntry[]
 }
 
 interface PinnedProject {
@@ -24,6 +28,7 @@ interface PinnedProject {
   forks: number
   demo?: string
   github: string
+  languages?: LangEntry[]
 }
 
 interface HackathonProject {
@@ -141,6 +146,26 @@ const PINNED: PinnedProject[] = [
     stars: 6, forks: 1,
     github: 'https://github.com/Amsan5941',
   },
+  {
+    name: 'ARMA / TRACE MCP',
+    slug: 'arma',
+    language: 'Python', langColor: LANG_COLORS.Python,
+    desc: 'Award-winning AI log intelligence platform built at PointClickCare, integrating MCP, RAG, and Elastic vector search for automated root cause analysis and incident triage.',
+    impactLine: '🏆 PCC AI Trailblazer Award · Error reviews: 80 min → 20 min/week',
+    stack: ['Python', 'FastAPI', 'LangChain', 'Elasticsearch', 'MCP'],
+    stars: 9, forks: 2,
+    github: 'https://github.com/Amsan5941',
+  },
+  {
+    name: 'SPC Platform',
+    slug: 'spc-platform',
+    language: 'C#', langColor: LANG_COLORS['C#'],
+    desc: 'Global Statistical Process Control dashboards deployed across worldwide manufacturing facilities, with full Azure cloud migration and real-time anomaly monitoring.',
+    impactLine: '150+ daily users · 47 production issues resolved · 30% infra cost saved',
+    stack: ['C#', '.NET', 'Angular', 'Azure', 'Azure SQL'],
+    stars: 2, forks: 0,
+    github: 'https://github.com/Amsan5941',
+  },
 ]
 
 const HACKATHON_PROJECTS: HackathonProject[] = [
@@ -193,11 +218,6 @@ const StarIcon = () => (
   </svg>
 )
 
-const ForkIcon = () => (
-  <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor">
-    <path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75v-.878a2.25 2.25 0 1 1 1.5 0v.878a2.25 2.25 0 0 1-2.25 2.25h-1.5v2.128a2.251 2.251 0 1 1-1.5 0V8.5h-1.5A2.25 2.25 0 0 1 3.5 6.25v-.878a2.25 2.25 0 1 1 1.5 0zM5 3.25a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0zm6.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5zm-3 8.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0z" />
-  </svg>
-)
 
 const ExternalIcon = () => (
   <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor">
@@ -311,6 +331,7 @@ export default function Projects() {
   const [repos, setRepos] = useState<RepoEntry[]>(ALL_REPOS)
   const [pinned, setPinned] = useState<PinnedProject[]>(PINNED)
   const [reposLoading, setReposLoading] = useState(true)
+  const [selectedPin, setSelectedPin] = useState<PinnedProject | null>(null)
 
   useEffect(() => {
     fetch('/.netlify/functions/github-repos')
@@ -323,6 +344,12 @@ export default function Projects() {
       })
       .catch(() => {/* keep hardcoded fallback */})
       .finally(() => setReposLoading(false))
+  }, [])
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setSelectedPin(null) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
   }, [])
 
   return (
@@ -353,9 +380,8 @@ export default function Projects() {
         >
           {/* ── LEFT: Repo sidebar ────────────────────────── */}
           <div
-            className="rounded-xl overflow-hidden flex flex-col relative"
+            className="repo-sidebar-bg rounded-xl overflow-hidden flex flex-col relative"
             style={{
-              background: 'rgba(10,10,22,0.85)',
               border: '1px solid var(--card-border)',
               maxHeight: 540,
             }}
@@ -395,39 +421,35 @@ export default function Projects() {
             {/* Repo list */}
             <div className="overflow-y-auto flex-1 chat-scroll">
               {repos.map((repo) => (
-                <button
+                <a
                   key={repo.name}
+                  href={repo.url ?? `https://github.com/Amsan5941/${repo.name}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onMouseEnter={() => setActiveRepo(repo.name)}
                   onMouseLeave={() => setActiveRepo(null)}
-                  className="w-full text-left px-4 py-3 flex flex-col gap-1 transition-colors duration-150"
+                  className="w-full text-left px-4 py-3 flex flex-col gap-1 transition-colors duration-150 block"
                   style={{
-                    background: activeRepo === repo.name
-                      ? 'rgba(30,58,138,0.1)'
-                      : 'transparent',
+                    background: activeRepo === repo.name ? 'rgba(30,58,138,0.1)' : 'transparent',
                     borderBottom: '1px solid var(--card-border)',
+                    textDecoration: 'none',
                   }}
                 >
                   <div className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2 min-w-0">
-                      {/* Repo icon */}
                       <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style={{ color: '#94a3b8', flexShrink: 0 }}>
                         <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8Z" />
                       </svg>
                       <span
-                        className="font-mono text-xs font-semibold truncate"
-                        style={{ color: activeRepo === repo.name ? '#60a5fa' : '#e2e8f0' }}
+                        className="font-mono text-xs font-semibold truncate repo-item-name"
+                        style={{ color: activeRepo === repo.name ? '#60a5fa' : undefined }}
                       >
                         {repo.name}
                       </span>
                       {repo.pinned && (
                         <span
                           className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded"
-                          style={{
-                            background: 'rgba(245,158,11,0.12)',
-                            color: '#f59e0b',
-                            border: '1px solid rgba(245,158,11,0.25)',
-                            flexShrink: 0,
-                          }}
+                          style={{ background: 'rgba(245,158,11,0.12)', color: '#f59e0b', border: '1px solid rgba(245,158,11,0.25)', flexShrink: 0 }}
                         >
                           pinned
                         </span>
@@ -439,28 +461,21 @@ export default function Projects() {
                     </div>
                   </div>
 
-                  <p
-                    className="font-mono text-[10px] leading-snug line-clamp-1"
-                    style={{ color: '#94a3b8' }}
-                  >
+                  <p className="font-mono text-[10px] leading-snug line-clamp-1 repo-item-desc">
                     {repo.desc}
                   </p>
 
-                  <div className="flex items-center gap-3 mt-0.5">
-                    <div className="flex items-center gap-1">
-                      <span
-                        className="w-2 h-2 rounded-full"
-                        style={{ background: repo.langColor, boxShadow: `0 0 4px ${repo.langColor}66` }}
-                      />
-                      <span className="font-mono text-[10px]" style={{ color: '#94a3b8' }}>
-                        {repo.language}
-                      </span>
-                    </div>
-                    <span className="font-mono text-[10px]" style={{ color: '#94a3b8' }}>
-                      Updated {repo.updated}
-                    </span>
+                  <div className="flex items-center gap-3 mt-0.5 flex-wrap">
+                    {/* All languages as colored dots */}
+                    {(repo.languages && repo.languages.length > 0 ? repo.languages : [{ name: repo.language, color: repo.langColor }]).map(lang => (
+                      <div key={lang.name} className="flex items-center gap-1">
+                        <span className="w-2 h-2 rounded-full" style={{ background: lang.color, boxShadow: `0 0 4px ${lang.color}66`, flexShrink: 0 }} />
+                        <span className="font-mono text-[10px] repo-item-meta">{lang.name}</span>
+                      </div>
+                    ))}
+                    <span className="font-mono text-[10px] repo-item-meta">· {repo.updated}</span>
                   </div>
-                </button>
+                </a>
               ))}
             </div>
 
@@ -486,15 +501,15 @@ export default function Projects() {
 
           {/* ── RIGHT: 2×2 pinned cards ───────────────────── */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 content-start">
-            {pinned.map((proj, i) => (
+            {pinned.slice(0, 4).map((proj, i) => (
               <motion.article
                 key={proj.name}
                 {...slideUp(0.05 + i * 0.07)}
                 onMouseEnter={() => setHoveredPin(proj.name)}
                 onMouseLeave={() => setHoveredPin(null)}
-                className="rounded-xl p-5 flex flex-col gap-3 transition-all duration-200"
+                onClick={() => setSelectedPin(proj)}
+                className="pinned-card-bg rounded-xl p-5 flex flex-col gap-3 transition-all duration-200 cursor-pointer"
                 style={{
-                  background: 'rgba(10,10,22,0.85)',
                   border: hoveredPin === proj.name
                     ? '1px solid rgba(30,58,138,0.5)'
                     : '1px solid var(--card-border)',
@@ -515,9 +530,9 @@ export default function Projects() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="font-mono text-sm font-semibold truncate transition-colors"
-                      style={{ color: '#e2e8f0' }}
+                      style={{ color: 'var(--text-primary)' }}
                       onMouseEnter={e => (e.currentTarget.style.color = '#f59e0b')}
-                      onMouseLeave={e => (e.currentTarget.style.color = '#e2e8f0')}
+                      onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-primary)')}
                     >
                       {proj.name}
                     </a>
@@ -545,7 +560,7 @@ export default function Projects() {
                 {/* Description */}
                 <p
                   className="text-xs leading-relaxed line-clamp-2"
-                  style={{ color: '#94a3b8' }}
+                  style={{ color: 'var(--text-muted)' }}
                 >
                   {proj.desc}
                 </p>
@@ -567,59 +582,107 @@ export default function Projects() {
                   ))}
                 </div>
 
-                {/* Footer: language + stars + forks + links */}
+                {/* Footer: languages + stats + "click for details" hint */}
                 <div className="flex items-center justify-between gap-2 mt-auto pt-2" style={{ borderTop: '1px solid var(--card-border)' }}>
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-1">
-                      <span
-                        className="w-2.5 h-2.5 rounded-full"
-                        style={{ background: proj.langColor, boxShadow: `0 0 5px ${proj.langColor}66` }}
-                      />
-                      <span className="font-mono text-[10px]" style={{ color: '#94a3b8' }}>
-                        {proj.language}
-                      </span>
-                    </div>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    {(proj.languages && proj.languages.length > 0
+                      ? proj.languages
+                      : [{ name: proj.language, color: proj.langColor }]
+                    ).map(lang => (
+                      <div key={lang.name} className="flex items-center gap-1">
+                        <span className="w-2 h-2 rounded-full" style={{ background: lang.color, boxShadow: `0 0 4px ${lang.color}66` }} />
+                        <span className="font-mono text-[10px]" style={{ color: 'var(--text-muted)' }}>{lang.name}</span>
+                      </div>
+                    ))}
                     <div className="flex items-center gap-1" style={{ color: '#94a3b8' }}>
-                      <StarIcon />
-                      <span className="font-mono text-[10px]">{proj.stars}</span>
-                    </div>
-                    <div className="flex items-center gap-1" style={{ color: '#94a3b8' }}>
-                      <ForkIcon />
-                      <span className="font-mono text-[10px]">{proj.forks}</span>
+                      <StarIcon /><span className="font-mono text-[10px]">{proj.stars}</span>
                     </div>
                   </div>
-
-                  <div className="flex items-center gap-2">
-                    {proj.demo && (
-                      <a
-                        href={proj.demo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1 font-mono text-[10px] font-semibold transition-colors"
-                        style={{ color: '#60a5fa' }}
-                        onMouseEnter={e => (e.currentTarget.style.color = '#f59e0b')}
-                        onMouseLeave={e => (e.currentTarget.style.color = '#60a5fa')}
-                      >
-                        Demo <ExternalIcon />
-                      </a>
-                    )}
-                    <a
-                      href={proj.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1 font-mono text-[10px] font-semibold transition-colors"
-                      style={{ color: '#94a3b8' }}
-                      onMouseEnter={e => (e.currentTarget.style.color = '#f1f5f9')}
-                      onMouseLeave={e => (e.currentTarget.style.color = '#94a3b8')}
-                    >
-                      GitHub <ExternalIcon />
-                    </a>
-                  </div>
+                  <span className="font-mono text-[9px] flex items-center gap-1" style={{ color: 'var(--text-muted)' }}>
+                    click for details ↗
+                  </span>
                 </div>
               </motion.article>
             ))}
           </div>
         </motion.div>
+
+        {/* ── Full-width featured projects row ─────────────── */}
+        {pinned.length > 4 && (
+          <motion.div {...slideUp(0.22)} className="mt-4 grid sm:grid-cols-2 gap-4">
+            {pinned.slice(4).map((proj, i) => (
+              <motion.article
+                key={proj.name}
+                {...slideUp(0.22 + i * 0.07)}
+                onMouseEnter={() => setHoveredPin(proj.name)}
+                onMouseLeave={() => setHoveredPin(null)}
+                onClick={() => setSelectedPin(proj)}
+                className="pinned-card-bg rounded-xl p-6 flex flex-col gap-3 transition-all duration-200 cursor-pointer"
+                style={{
+                  border: hoveredPin === proj.name
+                    ? '1px solid rgba(212,175,55,0.45)'
+                    : '1px solid var(--card-border)',
+                  boxShadow: hoveredPin === proj.name
+                    ? '0 8px 32px rgba(212,175,55,0.12)'
+                    : 'none',
+                  transform: hoveredPin === proj.name ? 'translateY(-2px)' : 'none',
+                }}
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style={{ color: '#64748b', flexShrink: 0 }}>
+                      <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8Z" />
+                    </svg>
+                    <a
+                      href={proj.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-mono text-sm font-semibold truncate transition-colors"
+                      style={{ color: 'var(--text-primary)' }}
+                      onMouseEnter={e => (e.currentTarget.style.color = '#d4af37')}
+                      onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-primary)')}
+                    >
+                      {proj.name}
+                    </a>
+                  </div>
+                  <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded shrink-0"
+                    style={{ background: 'rgba(212,175,55,0.12)', color: '#d4af37', border: '1px solid rgba(212,175,55,0.3)' }}>
+                    featured
+                  </span>
+                </div>
+                <p className="text-[11px] font-semibold" style={{ color: '#d4af37' }}>{proj.impactLine}</p>
+                <p className="text-xs leading-relaxed" style={{ color: 'var(--text-muted)' }}>{proj.desc}</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {proj.stack.map(tech => (
+                    <span key={tech} className="font-mono text-[10px] px-2 py-0.5 rounded"
+                      style={{ background: 'rgba(212,175,55,0.08)', color: '#d4af37', border: '1px solid rgba(212,175,55,0.2)' }}>
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex items-center justify-between gap-2 mt-auto pt-2" style={{ borderTop: '1px solid var(--card-border)' }}>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    {(proj.languages && proj.languages.length > 0
+                      ? proj.languages
+                      : [{ name: proj.language, color: proj.langColor }]
+                    ).map(lang => (
+                      <div key={lang.name} className="flex items-center gap-1">
+                        <span className="w-2 h-2 rounded-full" style={{ background: lang.color, boxShadow: `0 0 4px ${lang.color}66` }} />
+                        <span className="font-mono text-[10px]" style={{ color: 'var(--text-muted)' }}>{lang.name}</span>
+                      </div>
+                    ))}
+                    <div className="flex items-center gap-1" style={{ color: 'var(--text-muted)' }}>
+                      <StarIcon /><span className="font-mono text-[10px]">{proj.stars}</span>
+                    </div>
+                  </div>
+                  <span className="font-mono text-[9px] flex items-center gap-1" style={{ color: 'var(--text-muted)' }}>
+                    click for details ↗
+                  </span>
+                </div>
+              </motion.article>
+            ))}
+          </motion.div>
+        )}
 
         {/* ── Currently Building ──────────────────────────── */}
         <motion.div {...slideUp(0.25)} className="mt-10">
@@ -657,6 +720,127 @@ export default function Projects() {
         </motion.div>
 
       </div>
+
+      {/* ── Pinned project detail modal ──────────────────────── */}
+      <AnimatePresence>
+        {selectedPin && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              key="backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setSelectedPin(null)}
+              style={{
+                position: 'fixed', inset: 0, zIndex: 500,
+                background: 'rgba(2,6,23,0.75)',
+                backdropFilter: 'blur(6px)',
+              }}
+            />
+            {/* Sheet */}
+            <motion.div
+              key="sheet"
+              initial={{ opacity: 0, y: 60 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 40 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+              className="project-modal-sheet"
+              style={{
+                position: 'fixed', left: '50%', top: '50%',
+                transform: 'translate(-50%, -50%)',
+                zIndex: 501,
+                width: 'min(640px, calc(100vw - 32px))',
+                maxHeight: 'calc(100vh - 64px)',
+                overflowY: 'auto',
+                border: '1px solid rgba(30,58,138,0.4)',
+                borderRadius: '20px',
+                boxShadow: '0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(30,58,138,0.2)',
+                padding: '32px',
+              }}
+            >
+              {/* Close */}
+              <button
+                onClick={() => setSelectedPin(null)}
+                style={{
+                  position: 'absolute', top: 16, right: 16,
+                  background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
+                  borderRadius: '8px', width: 32, height: 32, cursor: 'pointer',
+                  color: '#94a3b8', fontSize: 16, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}
+              >
+                ✕
+              </button>
+
+              {/* Header */}
+              <div className="mb-5">
+                <span className="font-mono text-[10px] font-bold uppercase tracking-widest" style={{ color: '#f59e0b' }}>
+                  pinned project
+                </span>
+                <h3 className="font-display font-bold text-xl mt-1" style={{ color: '#f1f5f9' }}>
+                  {selectedPin.name}
+                </h3>
+                {selectedPin.impactLine && (
+                  <p className="font-mono text-xs mt-1" style={{ color: '#f59e0b' }}>
+                    {selectedPin.impactLine}
+                  </p>
+                )}
+              </div>
+
+              {/* Description */}
+              <p className="text-sm leading-relaxed mb-5" style={{ color: '#94a3b8' }}>
+                {selectedPin.desc}
+              </p>
+
+              {/* Languages */}
+              {(selectedPin.languages?.length ?? 0) > 0 && (
+                <div className="mb-4">
+                  <p className="font-mono text-[10px] uppercase tracking-widest mb-2" style={{ color: '#475569' }}>Languages</p>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedPin.languages!.map(lang => (
+                      <div key={lang.name} className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg"
+                        style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                        <span className="w-2 h-2 rounded-full" style={{ background: lang.color }} />
+                        <span className="font-mono text-[11px]" style={{ color: '#cbd5e1' }}>{lang.name}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Stack */}
+              {selectedPin.stack.length > 0 && (
+                <div className="mb-5">
+                  <p className="font-mono text-[10px] uppercase tracking-widest mb-2" style={{ color: '#475569' }}>Tech Stack</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {selectedPin.stack.map(t => (
+                      <span key={t} className="font-mono text-[11px] px-2.5 py-1 rounded"
+                        style={{ background: 'rgba(245,158,11,0.08)', color: '#f59e0b', border: '1px solid rgba(245,158,11,0.2)' }}>
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Actions */}
+              <div className="flex flex-wrap gap-3 pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+                <a href={selectedPin.github} target="_blank" rel="noopener noreferrer" className="btn-primary"
+                  style={{ fontSize: 13, padding: '9px 20px' }}>
+                  View on GitHub <ExternalIcon />
+                </a>
+                {selectedPin.demo && selectedPin.demo !== '#' && (
+                  <a href={selectedPin.demo} target="_blank" rel="noopener noreferrer" className="btn-secondary"
+                    style={{ fontSize: 13, padding: '9px 20px' }}>
+                    Live Demo <ExternalIcon />
+                  </a>
+                )}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </section>
   )
 }

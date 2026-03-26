@@ -4,6 +4,7 @@ const JOBS = [
   {
     id: 'pcc',
     company: 'PointClickCare',
+    logo: 'https://www.google.com/s2/favicons?domain=pointclickcare.com&sz=64',
     role: 'SRE / AI Engineer',
     type: 'Co-op',
     period: 'May – Aug 2024',
@@ -18,6 +19,7 @@ const JOBS = [
   {
     id: 'celestica',
     company: 'Celestica',
+    logo: 'https://www.google.com/s2/favicons?domain=celestica.com&sz=64',
     role: 'Software Engineer',
     type: 'Co-op',
     period: 'Sep – Dec 2023',
@@ -32,6 +34,7 @@ const JOBS = [
   {
     id: 'weston',
     company: 'Weston Foods',
+    logo: 'https://media.licdn.com/dms/image/v2/C560BAQF4JpIgYJn-Mg/company-logo_200_200/company-logo_200_200/0/1630639893398/weston_foods__logo?e=2147483647&v=beta&t=73sC_rEpFUq2na26n_La_StvLWPthH5EyebDu102D6o',
     role: 'Software Developer',
     type: 'Co-op',
     period: 'Jan – Apr 2023',
@@ -46,6 +49,7 @@ const JOBS = [
   {
     id: 'avolta',
     company: 'Avolta',
+    logo: 'https://media.licdn.com/dms/image/v2/D560BAQGg_epiU9DjhA/company-logo_200_200/company-logo_200_200/0/1692304711296?e=2147483647&v=beta&t=d5kDwIZYuERYNUxmyz3uzp3Vb9ajSpumrlmCLxBW2wQ',
     role: 'Software Developer',
     type: 'Co-op',
     period: '2022',
@@ -60,6 +64,7 @@ const JOBS = [
   {
     id: 'mcdonalds',
     company: "McDonald's",
+    logo: 'https://www.google.com/s2/favicons?domain=mcdonalds.com&sz=64',
     role: 'Team Lead',
     type: 'Part-time',
     period: '2020 – 2022',
@@ -106,13 +111,24 @@ export default function Experience() {
               {/* Top bar accent */}
               <div className="h-0.5 rounded-full w-12" style={{ background: job.accentColor }} />
 
-              {/* Company + period */}
-              <div>
-                <p className="dc-muted font-mono text-[10px] uppercase tracking-widest mb-1">
-                  {job.type} · {job.period}
-                </p>
-                <h3 className="dc-head font-display font-bold text-lg leading-tight">{job.company}</h3>
-                <p className="text-sm font-medium mt-0.5" style={{ color: job.accentColor }}>{job.role}</p>
+              {/* Company + logo + period */}
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p className="dc-muted font-mono text-[10px] uppercase tracking-widest mb-1">
+                    {job.type} · {job.period}
+                  </p>
+                  <h3 className="dc-head font-display font-bold text-lg leading-tight">{job.company}</h3>
+                  <p className="text-sm font-medium mt-0.5" style={{ color: job.accentColor }}>{job.role}</p>
+                </div>
+                <img
+                  src={job.logo}
+                  alt={job.company}
+                  width={44}
+                  height={44}
+                  className="rounded-lg flex-shrink-0"
+                  style={{ opacity: 0.9, objectFit: 'contain' }}
+                  onError={e => { (e.target as HTMLImageElement).style.display = 'none' }}
+                />
               </div>
 
               {/* Achievement badge */}

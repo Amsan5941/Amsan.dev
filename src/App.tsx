@@ -6,7 +6,6 @@ import CustomCursor      from './components/CustomCursor'
 import HeroChat          from './components/HeroChat'
 import ProofBar          from './components/ProofBar'
 import About            from './components/About'
-import Craft            from './components/Craft'
 import Experience       from './components/Experience'
 import Projects         from './components/Projects'
 import FlagshipCaseStudies from './components/FlagshipCaseStudies'
@@ -101,7 +100,6 @@ export default function App() {
             </Suspense>
           </div>
           <About />
-          <Craft />
           <Experience />
           <Projects />
           <div id="case-studies">

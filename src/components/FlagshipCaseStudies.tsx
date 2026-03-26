@@ -131,10 +131,7 @@ export default function FlagshipCaseStudies() {
                 <button onClick={() => toggle(item.title)} className="w-full text-left px-6 py-5 flex flex-col sm:flex-row sm:items-start gap-4">
                   <div className="flex-1 min-w-0">
                     <div className="flex flex-wrap items-center gap-2 mb-2">
-                      <span
-                        className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded"
-                        style={{ background: 'rgba(30,58,138,0.2)', color: '#93c5fd', border: '1px solid rgba(96,165,250,0.25)' }}
-                      >
+                      <span className="badge-role text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded">
                         {item.role}
                       </span>
                       <span className="dc-muted text-xs font-mono">{item.company} · {item.period}</span>

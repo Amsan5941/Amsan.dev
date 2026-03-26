@@ -36,39 +36,56 @@ export default function Testimonials() {
           {/* LEFT: Testimonial + ForgeFit */}
           <div className="flex flex-col gap-5">
 
-            {/* PCC Testimonial */}
-            <motion.blockquote
+            {/* LinkedIn Recommendation — Lorand Sari */}
+            <motion.a
+              href="https://linkedin.com/in/amsan-naheswaran"
+              target="_blank"
+              rel="noopener noreferrer"
               {...slideUp(0.08)}
               onMouseEnter={() => setHovered('quote')}
               onMouseLeave={() => setHovered(null)}
               className="dark-card rounded-2xl p-6 flex flex-col gap-4"
               style={{
-                border: hovered === 'quote' ? '1px solid rgba(96,165,250,0.45)' : undefined,
-                boxShadow: hovered === 'quote' ? '0 12px 40px rgba(96,165,250,0.1)' : '0 4px 24px rgba(0,0,0,0.15)',
+                border: hovered === 'quote' ? '1px solid rgba(10,102,194,0.55)' : '1px solid rgba(10,102,194,0.2)',
+                boxShadow: hovered === 'quote' ? '0 12px 40px rgba(10,102,194,0.12)' : '0 4px 24px rgba(0,0,0,0.15)',
                 transform: hovered === 'quote' ? 'rotate(0deg) translateY(-4px)' : 'rotate(-1.8deg)',
                 transition: 'transform 0.3s ease, border-color 0.2s, box-shadow 0.2s',
                 transformOrigin: 'top left',
+                textDecoration: 'none',
+                cursor: 'pointer',
               }}
             >
-              <span className="text-5xl select-none leading-none" style={{ color: '#d4af37', fontFamily: 'Georgia, serif', lineHeight: 1 }} aria-hidden>
+              {/* LinkedIn header */}
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#0a66c2">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                  </svg>
+                  <span className="font-mono text-[10px] uppercase tracking-wider" style={{ color: '#0a66c2' }}>LinkedIn Recommendation</span>
+                </div>
+                <span className="font-mono text-[9px]" style={{ color: '#475569' }}>View ↗</span>
+              </div>
+
+              <span className="text-4xl select-none leading-none" style={{ color: '#d4af37', fontFamily: 'Georgia, serif', lineHeight: 1 }} aria-hidden>
                 &ldquo;
               </span>
               <p className="dc-body text-sm leading-relaxed flex-1">
-                Amsan's RAG pipeline was the most complete AI prototype I've seen from a co-op
-                engineer. He didn't just build it — he understood the operational constraints
-                and designed for them. The triage time reduction in our internal demos was real.
+                Amsan played a key role in transforming our ARMA Web AI Application into the TRACE MCP,
+                reducing Error Review Meetings from <strong style={{ color: '#d4af37' }}>80 minutes to 20 minutes</strong> a week.
+                Any engineering organization would be fortunate to have him — innovative, driven, and well on his way
+                to becoming an outstanding engineer.
               </p>
               <div className="flex items-center gap-3 pt-3" style={{ borderTop: '1px solid var(--card-border)' }}>
                 <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold shrink-0"
-                  style={{ background: 'rgba(96,165,250,0.12)', color: '#60a5fa', border: '1px solid rgba(96,165,250,0.3)' }}>
-                  PCC
+                  style={{ background: 'rgba(10,102,194,0.12)', color: '#0a66c2', border: '1px solid rgba(10,102,194,0.3)' }}>
+                  LS
                 </div>
                 <div>
-                  <p className="dc-head text-xs font-semibold">Engineering Lead</p>
-                  <p className="dc-muted text-[11px]">SRE Team · PointClickCare</p>
+                  <p className="dc-head text-xs font-semibold">Lorand Sari</p>
+                  <p className="dc-muted text-[11px]">Senior Manager, AIops/SRE · PointClickCare · Dec 2025</p>
                 </div>
               </div>
-            </motion.blockquote>
+            </motion.a>
 
             {/* ForgeFit App Store card */}
             <motion.div
@@ -162,6 +179,18 @@ export default function Testimonials() {
                   style={{ background: 'rgba(212,175,55,0.12)', color: '#d4af37', border: '1px solid rgba(212,175,55,0.35)', whiteSpace: 'nowrap' }}>
                   1ST PLACE – All Intern Teams
                 </span>
+                <a
+                  href="https://linkedin.com/in/amsan-naheswaran"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded"
+                  style={{ background: 'rgba(10,102,194,0.1)', color: '#0a66c2', border: '1px solid rgba(10,102,194,0.3)', whiteSpace: 'nowrap', textDecoration: 'none' }}
+                >
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                  </svg>
+                  Proof ↗
+                </a>
               </div>
             </div>
           </motion.div>

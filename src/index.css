@@ -424,6 +424,56 @@ body.light .hackathon-detail {
   font-size: clamp(2.6rem, 5.5vw, 4rem) !important;
 }
 
+/* ── Terminal card — always stays dark regardless of theme ── */
+.terminal-card {
+  background: #0d1117 !important;
+  border-color: rgba(255,255,255,0.08) !important;
+}
+body.light .terminal-card {
+  background: #0d1117 !important;
+  border-color: rgba(255,255,255,0.08) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25) !important;
+}
+
+/* ── Flagship case studies role badge ───────────────────── */
+.badge-role {
+  color: #93c5fd;
+  background: rgba(30,58,138,0.2);
+  border: 1px solid rgba(96,165,250,0.25);
+}
+body.light .badge-role {
+  color: #1d4ed8;
+  background: rgba(30,58,138,0.08);
+  border-color: rgba(30,58,138,0.25);
+}
+
+/* ── Projects section light mode ────────────────────────── */
+.repo-sidebar-bg {
+  background: rgba(10,10,22,0.85);
+}
+body.light .repo-sidebar-bg {
+  background: #ffffff;
+  border-color: rgba(0,0,0,0.09) !important;
+}
+.pinned-card-bg {
+  background: rgba(10,10,22,0.85);
+}
+body.light .pinned-card-bg {
+  background: #ffffff;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+}
+/* Project modal sheet */
+.project-modal-sheet {
+  background: rgba(10,10,28,0.97);
+}
+body.light .project-modal-sheet {
+  background: #ffffff;
+}
+/* Sidebar repo names — light text flips to dark in light mode */
+.repo-sidebar-bg .repo-item-name { color: var(--text-primary); }
+.repo-sidebar-bg .repo-item-desc { color: var(--text-muted); }
+.repo-sidebar-bg .repo-item-meta { color: var(--text-muted); }
+
 /* ── Chat widget ──────────────────────────────────────────── */
 .chat-widget-panel {
   position: fixed;

@@ -61,6 +61,9 @@ const QUERY = `
             repositoryTopics(first: 8) {
               nodes { topic { name } }
             }
+            languages(first: 5, orderBy: {field: SIZE, direction: DESC}) {
+              nodes { name color }
+            }
           }
         }
       }
@@ -78,6 +81,9 @@ const QUERY = `
           updatedAt
           isFork
           primaryLanguage { name color }
+          languages(first: 4, orderBy: {field: SIZE, direction: DESC}) {
+            nodes { name color }
+          }
         }
       }
     }
@@ -143,6 +149,7 @@ exports.handler = async function (event) {
         github:    r.url,
         demo:      r.homepageUrl || null,
         stack:     r.repositoryTopics.nodes.map(n => formatTopic(n.topic.name)).slice(0, 5),
+        languages: (r.languages?.nodes ?? []).map(l => ({ name: l.name, color: l.color ?? '#94a3b8' })),
       }))
 
     // If no topics, fall back to primary language as the only stack badge
@@ -160,6 +167,8 @@ exports.handler = async function (event) {
         stars:     r.stargazerCount,
         pinned:    pinnedNames.has(r.name),
         isFork:    r.isFork,
+        url:       r.url,
+        languages: (r.languages?.nodes ?? []).map(l => ({ name: l.name, color: l.color ?? '#94a3b8' })),
       }))
 
     return {
