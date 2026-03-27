@@ -262,7 +262,7 @@ function HackathonGrid({ projects, isLightMode }: { projects: HackathonProject[]
 
   return (
     <div className="space-y-2">
-      <div className="relative px-1 md:px-2 pt-2.5">
+      <div className="relative px- pt-2.5">
         <svg
           aria-hidden
           className="absolute left-0 right-0 top-0 h-14 w-full pointer-events-none"
@@ -270,14 +270,14 @@ function HackathonGrid({ projects, isLightMode }: { projects: HackathonProject[]
           preserveAspectRatio="none"
         >
           <path
-            d="M12,64 C92,-12 172,140 252,64 S412,140 492,64 S652,140 732,64 S892,140 972,64"
+            d="M0,64 C84,-12 166,140 250,64 S416,140 500,64 S666,140 750,64 S916,140 1000,64"
             fill="none"
             stroke={lineGlow}
             strokeWidth="3"
             strokeLinecap="round"
           />
           <path
-            d="M12,64 C92,-12 172,140 252,64 S412,140 492,64 S652,140 732,64 S892,140 972,64"
+            d="M0,64 C84,-12 166,140 250,64 S416,140 500,64 S666,140 750,64 S916,140 1000,64"
             fill="none"
             stroke={lineMain}
             strokeWidth="1.5"
@@ -371,7 +371,12 @@ function HackathonGrid({ projects, isLightMode }: { projects: HackathonProject[]
               <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: accentSoft }}>
                 Active Hackathon
               </p>
-              <h3 className="hc-title font-mono text-sm md:text-base font-semibold mt-0.5" style={{ color: accentSoft }}>{activeProject.event}</h3>
+              <h3 className="hc-title font-mono text-sm md:text-base font-semibold mt-0.5" style={{ color: 'var(--text-primary)' }}>
+                {activeProject.name}
+              </h3>
+              <p className="font-mono text-[10px] mt-0.5" style={{ color: accentSoft }}>
+                {activeProject.event}
+              </p>
             </div>
             <div className="flex items-center gap-2">
               <button

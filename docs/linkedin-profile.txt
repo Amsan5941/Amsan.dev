@@ -1,0 +1,80 @@
+AMSAN NAHESWARAN
+Full-Stack Software Engineer | AI/ML & SRE Focus | Spring 2026 Graduate
+Portfolio: amsan-naheswaran.netlify.app | Location: Toronto, ON (Open to US)
+
+CURRENT STATUS
+Graduating Spring 2026. Actively seeking full-time Software Engineer roles in backend, cloud, AI/ML, or platform engineering. Available for immediate hire post-graduation.
+
+CORE STRENGTHS
+Backend systems • AI integration (RAG, MCP, vector search) • Cloud infrastructure (Azure, AWS) • Log processing & anomaly detection • SRE tooling • Full-stack development • System design at scale
+
+PROFESSIONAL SUMMARY
+Software Engineer with 2+ years production experience building AI-driven systems and cloud infrastructure. At PointClickCare, built Python/FastAPI log intelligence pipelines processing millions of logs daily, reducing incident triage from 80 to 20 minutes per week. At Celestica, led Azure cloud migration and SPC dashboards serving 150+ users globally. Proven ability to design impactful systems, mentor teams, and ship production-grade code under deadline.
+
+WORK EXPERIENCE
+
+PointClickCare | Software Engineer Intern (Co-op) | Sep 2025 – Dec 2025
+Award: PCC AI Trailblazer Award (1st place hackathon) for TRACE MCP project
+
+Key Impact:
+• Reduced Error Review Meetings from 80 minutes/week to 20 minutes (75% faster incident triage)
+• Built Python/FastAPI pipelines processing millions of logs daily
+• Designed RAG + vector search system for automated root-cause analysis
+• Integrated SRE AI workflows with Jira, GitHub, AppDynamics, internal databases
+
+Technologies: Python, FastAPI, Elasticsearch, MCP, RAG, Retrieval Augmented Generation, AI Agents, Cloud Services
+
+Celestica | Software Engineer Intern (Co-op) | May 2024 – Aug 2025
+Global Manufacturing Systems
+
+Key Impact:
+• Deployed SPC dashboards to 150+ daily users across worldwide manufacturing facilities
+• Led Azure cloud migration with zero production downtime
+• Resolved 47+ production-critical incidents
+• Built automation reducing infrastructure costs by 30%
+• Improved system reliability and engineering workflows through CI/CD automation
+
+Technologies: C#, .NET, Angular, SQL Server, Azure, Cloud Infrastructure
+
+Weston Foods | Data Entry Associate | Jul 2022 – Jan 2024
+Managed customer orders with high data integrity across multiple facilities.
+
+AVOLTA, Inc. | Software Engineer (Internship) | May 2022 – Dec 2022
+Built React Native app with C++ and SQL backend. API design, performance optimization, deployment automation.
+
+McDonald's | Team Lead | May 2019 – Jul 2022
+Led team of 10+. Training, leadership, operational excellence.
+
+TECHNICAL SKILLS
+Languages: Python, TypeScript, C#, C++, SQL, JavaScript
+Backend: FastAPI, .NET, Express, Node.js
+Frontend: React, React Native, Angular, Next.js
+Databases: PostgreSQL, SQL Server, Oracle, Supabase
+Cloud/DevOps: Azure, AWS, Docker, Kubernetes
+AI/ML: RAG, Vector Search, LLMs, Elasticsearch, MCP
+Tools: Git, Jira, GitHub, AppDynamics, CI/CD
+
+EDUCATION
+Toronto Metropolitan University | Bachelor of Science, Computer Science | Sep 2021 – Apr 2026
+Software Engineering concentration. Relevant: Algorithms, Operating Systems, Distributed Systems, Databases, AI/ML.
+
+PROJECTS & ACHIEVEMENTS
+
+ForgeFit | React Native, FastAPI, Supabase, ML | Oct 2025 – Present
+Cross-platform fitness app with GPT-4o Vision for food logging and calorie/macro calculation. Monitoring: Sentry, PostHog.
+
+Car Safety Evaluation | Decision Trees, Random Forest, ML Classifiers | Jun 2025 – Aug 2025
+ML classifier on UCI dataset. Trained 5 models (Decision Tree, Random Forest, KNN, Naive Bayes, SVM) achieving 98% accuracy.
+
+AI Trailblazer Award | PointClickCare Hackathon Winner | Nov 2025
+Led team to 1st place for TRACE MCP project reducing incident triage by 75%.
+
+Level Up: JavaScript Certification | LinkedIn | Dec 2023
+
+RECOMMENDATION FROM LORAND SARI (Senior Manager @ PointClickCare)
+
+"I had the pleasure of managing Amsan during his co-op term at PointClickCare, and he quickly distinguished himself as an exceptionally fast learner with strong technical adaptability and a genuine drive to take on challenging engineering problems. He consistently delivered above the expectations of a student intern and demonstrated an impressive ability to translate complex requirements into clear, effective solutions.
+
+Amsan played a key role in transforming our ARMA Web AI Application into the TRACE MCP integrating AppDynamics, Jira, GitHub, and internal databases. This resulted in reducing our Error Review Meetings from 80 minutes a week to just 20 minutes. His strong grasp of AI and emerging technologies allowed him to rapidly design impactful systems that improved team efficiency and set the foundation for long-term scalability.
+
+It was a very proud moment for me to see him lead his team to win an award in our company wide hackathon. Showcasing his leadership, collaboration, and ability to inspire others under pressure. Amsan consistently brought a positive, composed attitude to his work and demonstrated a genuine commitment to both personal and team growth. Any engineering organization would be fortunate to have him."

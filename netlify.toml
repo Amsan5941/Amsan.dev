@@ -5,6 +5,13 @@
 [functions]
   directory = "netlify/functions"
 
+[functions."chat"]
+  included_files = [
+    "resume/**",
+    "src/components/**",
+    "docs/**"
+  ]
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
