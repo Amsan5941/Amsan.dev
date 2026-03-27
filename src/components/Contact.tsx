@@ -10,21 +10,6 @@ const slideUp = (delay = 0) => ({
 
 const METHODS = [
   {
-    id: 'email',
-    label: 'Email',
-    handle: 'amsan5941@gmail.com',
-    cta: 'Send a message',
-    href: 'mailto:amsan5941@gmail.com',
-    color: '#d4af37',
-    external: false,
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="4" width="20" height="16" rx="2"/>
-        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-      </svg>
-    ),
-  },
-  {
     id: 'linkedin',
     label: 'LinkedIn',
     handle: 'amsan-naheswaran',
@@ -117,7 +102,7 @@ export default function Contact() {
         </motion.div>
 
         {/* Contact method cards */}
-        <div className="grid sm:grid-cols-3 gap-5 mb-8">
+        <div className="grid sm:grid-cols-2 gap-5 mb-8">
           {METHODS.map((m, i) => (
             <motion.a
               key={m.id}

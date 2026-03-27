@@ -353,12 +353,10 @@ export default function GitHubContributions() {
                             }}
                             onMouseEnter={e => {
                               const rect = (e.target as HTMLElement).getBoundingClientRect()
-                              const parent = heatmapRef.current?.getBoundingClientRect()
-                              if (!parent) return
                               setTooltip({
                                 text: `${day.contributionCount} contribution${day.contributionCount !== 1 ? 's' : ''} on ${formatDate(day.date)}`,
-                                x: rect.left - parent.left + 5,
-                                y: rect.top - parent.top - 32,
+                                x: rect.left + rect.width / 2,
+                                y: rect.top - 36,
                               })
                             }}
                             onMouseLeave={() => setTooltip(null)}
@@ -373,11 +371,11 @@ export default function GitHubContributions() {
               {/* Tooltip */}
               {tooltip && (
                 <div
-                  className="absolute pointer-events-none z-50 px-3 py-1.5 rounded-full text-xs font-mono"
+                  className="fixed pointer-events-none z-50 px-3 py-1.5 rounded-full text-xs font-mono"
                   style={{
                     left: tooltip.x,
                     top: tooltip.y,
-                    transform: 'translateX(-50%)',
+                    transform: 'translate(-50%, -100%)',
                     background: 'linear-gradient(135deg, rgba(2,6,23,0.92), rgba(15,23,42,0.9))',
                     border: '1px solid rgba(6,182,212,0.67)',
                     color: '#f8fafc',
