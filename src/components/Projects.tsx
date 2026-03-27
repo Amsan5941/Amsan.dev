@@ -202,7 +202,7 @@ const HACKATHON_PROJECTS: HackathonProject[] = [
   },
   {
     name: 'Smart Incident Root Cause Analyzer',
-    event: 'DigitalOcean Gradient AI Hackathon',
+    event: 'DigitalOcean Gradient AI',
     desc: 'Incident intelligence tool that accelerates root-cause analysis from logs and telemetry signals.',
     stack: ['Python', 'RAG', 'Elasticsearch', 'LLMs'],
     github: 'https://devpost.com/software/smart-incident-root-cause-analyzer?ref_content=user-portfolio&ref_feature=in_progress',
@@ -245,91 +245,192 @@ const slideUp = (delay = 0) => ({
 
 /* ── HackathonGrid ─────────────────────────────────────── */
 function HackathonGrid({ projects }: { projects: HackathonProject[] }) {
-  const [active, setActive] = useState<string | null>(null)
+  const [active, setActive] = useState<string>(projects[0]?.name ?? '')
+  const [showDeepDetails, setShowDeepDetails] = useState(false)
+  const activeProject = projects.find(p => p.name === active) ?? projects[0]
 
-  const toggle = (name: string) => setActive(prev => prev === name ? null : name)
+  if (!activeProject) return null
 
   return (
-    <div className="space-y-3">
-      <div className="grid grid-cols-5 gap-5">
-        {projects.map((proj, i) => {
-          const isActive = active === proj.name
-          return (
-            <motion.article
-              key={proj.name}
-              {...slideUp(0.05 + i * 0.06)}
-              onClick={() => toggle(proj.name)}
-              className={`hackathon-card rounded-xl p-6 min-h-[240px] flex flex-col gap-3 select-none${isActive ? ' is-active' : ''}`}
-            >
-              <div className="flex items-center justify-between gap-2">
-                <span className="text-[10px] font-semibold px-2.5 py-0.5 rounded self-start whitespace-nowrap"
-                  style={{ background: 'rgba(16,185,129,0.1)', color: '#10b981', border: '1px solid rgba(16,185,129,0.25)' }}>
-                  {proj.event}
-                </span>
-                <svg width="12" height="12" viewBox="0 0 16 16" fill="none"
-                  style={{ color: '#10b981', flexShrink: 0, transform: isActive ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>
-                  <path d="M3 6l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
+    <div className="space-y-2">
+      <div className="relative px-1 md:px-2 pt-2.5">
+        <svg
+          aria-hidden
+          className="absolute left-0 right-0 top-0 h-14 w-full pointer-events-none"
+          viewBox="0 0 1000 128"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M12,64 C92,-12 172,140 252,64 S412,140 492,64 S652,140 732,64 S892,140 972,64"
+            fill="none"
+            stroke="rgba(16,185,129,0.16)"
+            strokeWidth="3"
+            strokeLinecap="round"
+          />
+          <path
+            d="M12,64 C92,-12 172,140 252,64 S412,140 492,64 S652,140 732,64 S892,140 972,64"
+            fill="none"
+            stroke="rgba(16,185,129,0.48)"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
+        </svg>
 
-              <h3 className="hc-title font-mono text-sm font-semibold">{proj.name}</h3>
-              <p className="hc-desc text-xs leading-relaxed flex-1">{proj.desc}</p>
-
-              <div className="flex flex-wrap gap-1">
-                {proj.stack.map(tech => (
-                  <span key={tech} className="font-mono text-[9px] px-1.5 py-0.5 rounded"
-                    style={{ background: 'rgba(16,185,129,0.06)', color: '#10b981', border: '1px solid rgba(16,185,129,0.15)' }}>
-                    {tech}
+        <div className="grid grid-cols-5 gap-1 md:gap-2 relative z-10">
+          {projects.map((proj, i) => {
+            const isActive = active === proj.name
+            return (
+              <motion.div
+                key={proj.name}
+                {...slideUp(0.03 + i * 0.04)}
+                className="flex flex-col items-center"
+              >
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActive(proj.name)
+                    setShowDeepDetails(false)
+                  }}
+                  className="group"
+                  aria-label={`Select ${proj.name}`}
+                  style={{ background: 'none', border: 'none' }}
+                >
+                  <span
+                    className="relative block rounded-full"
+                    style={{
+                      width: 18,
+                      height: 18,
+                      border: isActive ? '1.5px solid rgba(16,185,129,0.9)' : '1.5px solid rgba(16,185,129,0.45)',
+                      background: isActive ? 'rgba(16,185,129,0.2)' : 'rgba(16,185,129,0.08)',
+                      boxShadow: isActive ? '0 0 0 4px rgba(16,185,129,0.12), 0 0 22px rgba(16,185,129,0.35)' : 'none',
+                      transition: 'all 0.2s ease',
+                    }}
+                  >
+                    <span
+                      className="rounded-full"
+                      style={{
+                        position: 'absolute',
+                        inset: 5,
+                        background: isActive ? '#34d399' : 'rgba(52,211,153,0.6)',
+                      }}
+                    />
                   </span>
-                ))}
-              </div>
-            </motion.article>
-          )
-        })}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActive(proj.name)
+                    setShowDeepDetails(false)
+                  }}
+                  className="mt-1 font-mono text-center"
+                  style={{ background: 'none', border: 'none', color: isActive ? 'var(--text-primary)' : '#8fb3b0' }}
+                >
+                  <p className="text-[10px] md:text-[11px] font-semibold mt-0.5 line-clamp-1" style={{ color: '#34d399' }}>{proj.event}</p>
+                </button>
+              </motion.div>
+            )
+          })}
+        </div>
       </div>
 
-      {/* Expanded detail panel */}
-      <AnimatePresence>
-        {active && (() => {
-          const proj = projects.find(p => p.name === active)!
-          return (
-            <motion.div
-              key={active}
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
-              style={{ overflow: 'hidden' }}
-            >
-              <div className="hackathon-detail grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div>
-                  <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: '#10b981' }}>Problem</p>
-                  <p className="hd-body text-xs leading-relaxed">{proj.problem}</p>
-                </div>
-                <div>
-                  <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: '#10b981' }}>Approach</p>
-                  <p className="hd-body text-xs leading-relaxed">{proj.approach}</p>
-                </div>
-                <div className="flex flex-col gap-4">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeProject.name}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.25, ease: 'easeOut' }}
+          className="relative px-1 md:px-2 py-0.5"
+        >
+          <div
+            aria-hidden
+            className="absolute left-0 right-0 top-0 bottom-0 pointer-events-none"
+            style={{
+              background: 'radial-gradient(circle at 12% 24%, rgba(16,185,129,0.09), transparent 42%), radial-gradient(circle at 88% 78%, rgba(16,185,129,0.07), transparent 36%)',
+            }}
+          />
+
+          <div className="relative z-10 flex flex-wrap items-start justify-between gap-2">
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: '#34d399' }}>
+                Active Hackathon
+              </p>
+              <h3 className="hc-title font-mono text-sm md:text-base font-semibold mt-0.5" style={{ color: '#34d399' }}>{activeProject.event}</h3>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                className="font-mono text-[9px] md:text-[10px] font-semibold px-2 py-1 rounded-lg"
+                style={{
+                  color: '#10b981',
+                  border: '1px solid rgba(16,185,129,0.35)',
+                  background: 'rgba(16,185,129,0.08)',
+                }}
+                onClick={() => setShowDeepDetails(v => !v)}
+              >
+                {showDeepDetails ? 'Hide Details' : 'Show Details'}
+              </button>
+              {activeProject.github && (
+                <a
+                  href={activeProject.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 font-mono text-[10px] md:text-xs font-semibold px-2.5 py-1.5 rounded-lg transition-colors"
+                  style={{
+                    color: '#10b981',
+                    border: '1px solid rgba(16,185,129,0.35)',
+                    background: 'rgba(16,185,129,0.08)',
+                    textDecoration: 'none',
+                  }}
+                >
+                  Open Project <ExternalIcon />
+                </a>
+              )}
+            </div>
+          </div>
+
+          <p className="relative z-10 hd-body text-sm leading-relaxed mt-1.5 line-clamp-2">{activeProject.desc}</p>
+
+          <div className="relative z-10 mt-1.5 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-2 items-center">
+            <div className="flex items-center gap-2 font-mono text-xs" style={{ color: '#10b981' }}>
+              <span className="w-1.5 h-1.5 rounded-full" style={{ background: '#10b981', boxShadow: '0 0 8px rgba(16,185,129,0.65)' }} />
+              <span>{activeProject.status}</span>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {activeProject.stack.map(tech => (
+                <span key={tech} className="font-mono text-[10px] px-2 py-0.5 rounded"
+                  style={{ background: 'rgba(16,185,129,0.08)', color: '#10b981', border: '1px solid rgba(16,185,129,0.2)' }}>
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <AnimatePresence initial={false}>
+            {showDeepDetails && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.22, ease: 'easeInOut' }}
+                style={{ overflow: 'hidden' }}
+                className="relative z-10 mt-3"
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-3" style={{ borderTop: '1px dashed rgba(16,185,129,0.3)' }}>
                   <div>
-                    <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: '#10b981' }}>Status</p>
-                    <p className="text-xs leading-relaxed" style={{ color: '#10b981' }}>{proj.status}</p>
+                    <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: '#10b981' }}>Problem</p>
+                    <p className="hd-body text-xs leading-relaxed">{activeProject.problem}</p>
                   </div>
-                  {proj.github && (
-                    <a href={proj.github} target="_blank" rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 font-mono text-xs font-semibold transition-colors mt-auto self-start hd-muted"
-                      onMouseEnter={e => (e.currentTarget.style.color = 'var(--text-primary)')}
-                      onMouseLeave={e => (e.currentTarget.style.color = '')}
-                      onClick={e => e.stopPropagation()}
-                    >
-                      Project Page <ExternalIcon />
-                    </a>
-                  )}
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: '#10b981' }}>Approach</p>
+                    <p className="hd-body text-xs leading-relaxed">{activeProject.approach}</p>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          )
-        })()}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
       </AnimatePresence>
     </div>
   )
@@ -645,8 +746,8 @@ export default function Projects() {
         </motion.div>
 
         {/* ── Currently Building ──────────────────────────── */}
-        <motion.div {...slideUp(0.25)} className="mt-10">
-          <div className="flex items-center gap-3 mb-5">
+        <motion.div {...slideUp(0.25)} className="mt-8">
+          <div className="flex items-center gap-2 mb-3">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#10b981', boxShadow: '0 0 6px #10b98166' }} />
               <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#10b981' }}>Currently Building</span>
@@ -658,13 +759,7 @@ export default function Projects() {
             <span className="font-mono text-[10px]" style={{ color: '#64748b' }}>· click any card for details</span>
           </div>
 
-          <div
-            style={{
-              width: '100vw',
-              marginLeft: 'calc(50% - 50vw)',
-              paddingInline: 'clamp(1rem, 4vw, 2.5rem)',
-            }}
-          >
+          <div className="max-w-full">
             <HackathonGrid projects={HACKATHON_PROJECTS} />
           </div>
         </motion.div>
