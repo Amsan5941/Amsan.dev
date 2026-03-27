@@ -244,10 +244,19 @@ const slideUp = (delay = 0) => ({
 })
 
 /* ── HackathonGrid ─────────────────────────────────────── */
-function HackathonGrid({ projects }: { projects: HackathonProject[] }) {
+function HackathonGrid({ projects, isLightMode }: { projects: HackathonProject[]; isLightMode: boolean }) {
   const [active, setActive] = useState<string>(projects[0]?.name ?? '')
   const [showDeepDetails, setShowDeepDetails] = useState(false)
   const activeProject = projects.find(p => p.name === active) ?? projects[0]
+
+  const accent = isLightMode ? '#1e3a8a' : '#10b981'
+  const accentSoft = isLightMode ? '#334155' : '#34d399'
+  const lineGlow = isLightMode ? 'rgba(30,58,138,0.14)' : 'rgba(16,185,129,0.16)'
+  const lineMain = isLightMode ? 'rgba(30,58,138,0.5)' : 'rgba(16,185,129,0.48)'
+  const borderStrong = isLightMode ? 'rgba(30,58,138,0.85)' : 'rgba(16,185,129,0.9)'
+  const borderSoft = isLightMode ? 'rgba(30,58,138,0.45)' : 'rgba(16,185,129,0.45)'
+  const bgStrong = isLightMode ? 'rgba(30,58,138,0.14)' : 'rgba(16,185,129,0.2)'
+  const bgSoft = isLightMode ? 'rgba(30,58,138,0.06)' : 'rgba(16,185,129,0.08)'
 
   if (!activeProject) return null
 
@@ -263,14 +272,14 @@ function HackathonGrid({ projects }: { projects: HackathonProject[] }) {
           <path
             d="M12,64 C92,-12 172,140 252,64 S412,140 492,64 S652,140 732,64 S892,140 972,64"
             fill="none"
-            stroke="rgba(16,185,129,0.16)"
+            stroke={lineGlow}
             strokeWidth="3"
             strokeLinecap="round"
           />
           <path
             d="M12,64 C92,-12 172,140 252,64 S412,140 492,64 S652,140 732,64 S892,140 972,64"
             fill="none"
-            stroke="rgba(16,185,129,0.48)"
+            stroke={lineMain}
             strokeWidth="1.5"
             strokeLinecap="round"
           />
@@ -300,9 +309,13 @@ function HackathonGrid({ projects }: { projects: HackathonProject[] }) {
                     style={{
                       width: 18,
                       height: 18,
-                      border: isActive ? '1.5px solid rgba(16,185,129,0.9)' : '1.5px solid rgba(16,185,129,0.45)',
-                      background: isActive ? 'rgba(16,185,129,0.2)' : 'rgba(16,185,129,0.08)',
-                      boxShadow: isActive ? '0 0 0 4px rgba(16,185,129,0.12), 0 0 22px rgba(16,185,129,0.35)' : 'none',
+                      border: isActive ? `1.5px solid ${borderStrong}` : `1.5px solid ${borderSoft}`,
+                      background: isActive ? bgStrong : bgSoft,
+                      boxShadow: isActive
+                        ? isLightMode
+                          ? '0 0 0 4px rgba(30,58,138,0.10), 0 0 20px rgba(30,58,138,0.25)'
+                          : '0 0 0 4px rgba(16,185,129,0.12), 0 0 22px rgba(16,185,129,0.35)'
+                        : 'none',
                       transition: 'all 0.2s ease',
                     }}
                   >
@@ -311,7 +324,7 @@ function HackathonGrid({ projects }: { projects: HackathonProject[] }) {
                       style={{
                         position: 'absolute',
                         inset: 5,
-                        background: isActive ? '#34d399' : 'rgba(52,211,153,0.6)',
+                        background: isActive ? accentSoft : (isLightMode ? 'rgba(30,58,138,0.55)' : 'rgba(52,211,153,0.6)'),
                       }}
                     />
                   </span>
@@ -324,9 +337,9 @@ function HackathonGrid({ projects }: { projects: HackathonProject[] }) {
                     setShowDeepDetails(false)
                   }}
                   className="mt-1 font-mono text-center"
-                  style={{ background: 'none', border: 'none', color: isActive ? 'var(--text-primary)' : '#8fb3b0' }}
+                  style={{ background: 'none', border: 'none', color: isActive ? 'var(--text-primary)' : (isLightMode ? '#64748b' : '#8fb3b0') }}
                 >
-                  <p className="text-[10px] md:text-[11px] font-semibold mt-0.5 line-clamp-1" style={{ color: '#34d399' }}>{proj.event}</p>
+                  <p className="text-[10px] md:text-[11px] font-semibold mt-0.5 line-clamp-1" style={{ color: accentSoft }}>{proj.event}</p>
                 </button>
               </motion.div>
             )
@@ -347,25 +360,27 @@ function HackathonGrid({ projects }: { projects: HackathonProject[] }) {
             aria-hidden
             className="absolute left-0 right-0 top-0 bottom-0 pointer-events-none"
             style={{
-              background: 'radial-gradient(circle at 12% 24%, rgba(16,185,129,0.09), transparent 42%), radial-gradient(circle at 88% 78%, rgba(16,185,129,0.07), transparent 36%)',
+              background: isLightMode
+                ? 'radial-gradient(circle at 12% 24%, rgba(30,58,138,0.08), transparent 42%), radial-gradient(circle at 88% 78%, rgba(30,58,138,0.06), transparent 36%)'
+                : 'radial-gradient(circle at 12% 24%, rgba(16,185,129,0.09), transparent 42%), radial-gradient(circle at 88% 78%, rgba(16,185,129,0.07), transparent 36%)',
             }}
           />
 
           <div className="relative z-10 flex flex-wrap items-start justify-between gap-2">
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: '#34d399' }}>
+              <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: accentSoft }}>
                 Active Hackathon
               </p>
-              <h3 className="hc-title font-mono text-sm md:text-base font-semibold mt-0.5" style={{ color: '#34d399' }}>{activeProject.event}</h3>
+              <h3 className="hc-title font-mono text-sm md:text-base font-semibold mt-0.5" style={{ color: accentSoft }}>{activeProject.event}</h3>
             </div>
             <div className="flex items-center gap-2">
               <button
                 type="button"
                 className="font-mono text-[9px] md:text-[10px] font-semibold px-2 py-1 rounded-lg"
                 style={{
-                  color: '#10b981',
-                  border: '1px solid rgba(16,185,129,0.35)',
-                  background: 'rgba(16,185,129,0.08)',
+                  color: accent,
+                  border: isLightMode ? '1px solid rgba(30,58,138,0.35)' : '1px solid rgba(16,185,129,0.35)',
+                  background: isLightMode ? 'rgba(30,58,138,0.08)' : 'rgba(16,185,129,0.08)',
                 }}
                 onClick={() => setShowDeepDetails(v => !v)}
               >
@@ -378,9 +393,9 @@ function HackathonGrid({ projects }: { projects: HackathonProject[] }) {
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 font-mono text-[10px] md:text-xs font-semibold px-2.5 py-1.5 rounded-lg transition-colors"
                   style={{
-                    color: '#10b981',
-                    border: '1px solid rgba(16,185,129,0.35)',
-                    background: 'rgba(16,185,129,0.08)',
+                    color: accent,
+                    border: isLightMode ? '1px solid rgba(30,58,138,0.35)' : '1px solid rgba(16,185,129,0.35)',
+                    background: isLightMode ? 'rgba(30,58,138,0.08)' : 'rgba(16,185,129,0.08)',
                     textDecoration: 'none',
                   }}
                 >
@@ -393,14 +408,18 @@ function HackathonGrid({ projects }: { projects: HackathonProject[] }) {
           <p className="relative z-10 hd-body text-sm leading-relaxed mt-1.5 line-clamp-2">{activeProject.desc}</p>
 
           <div className="relative z-10 mt-1.5 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-2 items-center">
-            <div className="flex items-center gap-2 font-mono text-xs" style={{ color: '#10b981' }}>
-              <span className="w-1.5 h-1.5 rounded-full" style={{ background: '#10b981', boxShadow: '0 0 8px rgba(16,185,129,0.65)' }} />
+            <div className="flex items-center gap-2 font-mono text-xs" style={{ color: accent }}>
+              <span className="w-1.5 h-1.5 rounded-full" style={{ background: accent, boxShadow: isLightMode ? '0 0 8px rgba(30,58,138,0.45)' : '0 0 8px rgba(16,185,129,0.65)' }} />
               <span>{activeProject.status}</span>
             </div>
             <div className="flex flex-wrap gap-1.5">
               {activeProject.stack.map(tech => (
                 <span key={tech} className="font-mono text-[10px] px-2 py-0.5 rounded"
-                  style={{ background: 'rgba(16,185,129,0.08)', color: '#10b981', border: '1px solid rgba(16,185,129,0.2)' }}>
+                  style={{
+                    background: isLightMode ? 'rgba(30,58,138,0.08)' : 'rgba(16,185,129,0.08)',
+                    color: accent,
+                    border: isLightMode ? '1px solid rgba(30,58,138,0.2)' : '1px solid rgba(16,185,129,0.2)',
+                  }}>
                   {tech}
                 </span>
               ))}
@@ -417,13 +436,13 @@ function HackathonGrid({ projects }: { projects: HackathonProject[] }) {
                 style={{ overflow: 'hidden' }}
                 className="relative z-10 mt-3"
               >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-3" style={{ borderTop: '1px dashed rgba(16,185,129,0.3)' }}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-3" style={{ borderTop: isLightMode ? '1px dashed rgba(30,58,138,0.3)' : '1px dashed rgba(16,185,129,0.3)' }}>
                   <div>
-                    <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: '#10b981' }}>Problem</p>
+                    <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: accent }}>Problem</p>
                     <p className="hd-body text-xs leading-relaxed">{activeProject.problem}</p>
                   </div>
                   <div>
-                    <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: '#10b981' }}>Approach</p>
+                    <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: accent }}>Approach</p>
                     <p className="hd-body text-xs leading-relaxed">{activeProject.approach}</p>
                   </div>
                 </div>
@@ -495,7 +514,7 @@ export default function Projects() {
             className="mt-4 font-mono text-sm flex flex-wrap items-center gap-1"
             style={{ color: '#94a3b8' }}
           >
-            <span style={{ color: '#10b981' }}>amsan</span>
+            <span style={{ color: isLightMode ? '#1e3a8a' : '#10b981' }}>amsan</span>
             <span>@github</span>
             <span style={{ color: 'var(--text-primary)' }}>:~</span>
             <span style={{ color: '#f59e0b' }}>&nbsp;$&nbsp;</span>
@@ -749,18 +768,22 @@ export default function Projects() {
         <motion.div {...slideUp(0.25)} className="mt-8">
           <div className="flex items-center gap-2 mb-3">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#10b981', boxShadow: '0 0 6px #10b98166' }} />
-              <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#10b981' }}>Currently Building</span>
+              <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: isLightMode ? '#1e3a8a' : '#10b981', boxShadow: isLightMode ? '0 0 6px rgba(30,58,138,0.4)' : '0 0 6px #10b98166' }} />
+              <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: isLightMode ? '#1e3a8a' : '#10b981' }}>Currently Building</span>
             </div>
             <span className="hackathon-season-badge font-mono text-[10px] px-2 py-0.5 rounded-full"
-              style={{ background: 'rgba(16,185,129,0.1)', color: '#6ee7b7', border: '1px solid rgba(16,185,129,0.25)' }}>
+              style={{
+                background: isLightMode ? 'rgba(30,58,138,0.08)' : 'rgba(16,185,129,0.1)',
+                color: isLightMode ? '#1e3a8a' : '#6ee7b7',
+                border: isLightMode ? '1px solid rgba(30,58,138,0.25)' : '1px solid rgba(16,185,129,0.25)',
+              }}>
               Hackathon Season 2025
             </span>
             <span className="font-mono text-[10px]" style={{ color: '#64748b' }}>· click any card for details</span>
           </div>
 
           <div className="max-w-full">
-            <HackathonGrid projects={HACKATHON_PROJECTS} />
+            <HackathonGrid projects={HACKATHON_PROJECTS} isLightMode={isLightMode} />
           </div>
         </motion.div>
 
