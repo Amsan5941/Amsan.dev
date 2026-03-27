@@ -10,7 +10,7 @@ const slideUp = (delay = 0) => ({
 const BRIEF: [string, string][] = [
   ['role',      'SRE · Platform Engineering · AI Engineering'],
   ['available', 'May 2026 · Full-time · Open to relocation'],
-  ['degree',    'B.Eng Computer Science · TMU · Class of 2026'],
+  ['degree',    'Bachelor of Science in Computer Science · TMU · Class of 2026'],
   ['co-ops',    '4 production — PointClickCare · Celestica · Weston · Avolta'],
   ['award',     'PCC AI Trailblazer Award 2025 — 1st Place, All Intern Teams'],
   ['stack',     'Python · TypeScript · Kubernetes · FastAPI · RAG · LLMs'],

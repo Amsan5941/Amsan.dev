@@ -36,8 +36,8 @@ Key Impact:
 
 Technologies: C#, .NET, Angular, SQL Server, Azure, Cloud Infrastructure
 
-Weston Foods | Data Entry Associate | Jul 2022 – Jan 2024
-Managed customer orders with high data integrity across multiple facilities.
+Weston Foods | Software Engineer Intern (Data & Automation) | Jul 2022 – Jan 2024
+Built data and automation workflows for high-volume order operations, improving integrity and reporting reliability across multiple facilities.
 
 AVOLTA, Inc. | Software Engineer (Internship) | May 2022 – Dec 2022
 Built React Native app with C++ and SQL backend. API design, performance optimization, deployment automation.
@@ -55,7 +55,7 @@ AI/ML: RAG, Vector Search, LLMs, Elasticsearch, MCP
 Tools: Git, Jira, GitHub, AppDynamics, CI/CD
 
 EDUCATION
-Toronto Metropolitan University | Bachelor of Science, Computer Science | Sep 2021 – Apr 2026
+Toronto Metropolitan University | Bachelor of Science in Computer Science | Sep 2021 – Apr 2026
 Software Engineering concentration. Relevant: Algorithms, Operating Systems, Distributed Systems, Databases, AI/ML.
 
 PROJECTS & ACHIEVEMENTS

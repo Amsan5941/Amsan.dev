@@ -35,7 +35,7 @@ const JOBS = [
     id: 'weston',
     company: 'Weston Foods',
     logo: 'https://media.licdn.com/dms/image/v2/C560BAQF4JpIgYJn-Mg/company-logo_200_200/company-logo_200_200/0/1630639893398/weston_foods__logo?e=2147483647&v=beta&t=73sC_rEpFUq2na26n_La_StvLWPthH5EyebDu102D6o',
-    role: 'Software Developer',
+    role: 'Software Engineer Intern (Data & Automation)',
     type: 'Co-op',
     period: 'Jan – Apr 2023',
     accentColor: '#a78bfa',

@@ -7,7 +7,7 @@ const CARDS = [
     title: 'University',
     subtitle: 'Toronto Metropolitan',
     description:
-      "Pursuing Honours BSc in Computer Science — focused on AI, systems programming, and software engineering at one of Canada's top programs.",
+      "Pursuing a Bachelor of Science in Computer Science — focused on AI, systems programming, and software engineering at one of Canada's top programs.",
     detail: 'Class of 2026',
     color: '#1e3a8a',
   },
