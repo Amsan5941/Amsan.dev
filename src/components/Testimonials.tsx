@@ -12,7 +12,7 @@ const METRICS = [
   { value: '4',     label: 'PRODUCTION CO-OPS' },
   { value: '30%',   label: 'INFRASTRUCTURE COST SAVED' },
   { value: '95%+',  label: 'DATA INTEGRITY ACHIEVED' },
-  { value: '1000+', label: 'APP STORE USERS' },
+  { value: 'Beta', label: 'FORGEFIT STATUS' },
 ]
 
 export default function Testimonials() {
@@ -103,13 +103,13 @@ export default function Testimonials() {
             >
               <div className="flex items-start justify-between gap-2">
                 <div>
-                  <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: '#10b981' }}>Live on App Store</p>
+                  <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: '#10b981' }}>In Testing · Newly Deployed</p>
                   <h3 className="dc-head font-display font-bold text-lg">ForgeFit</h3>
                 </div>
                 <span className="text-2xl">📱</span>
               </div>
               <div className="grid grid-cols-3 gap-3">
-                {[{ value: '1000+', label: 'Downloads' }, { value: '4.2★', label: 'Rating' }, { value: '150+', label: 'Reviews' }].map(m => (
+                {[{ value: 'New', label: 'Just Launched' }, { value: 'Beta', label: 'Phase' }, { value: 'Live', label: 'Status' }].map(m => (
                   <div key={m.label} className="rounded-lg p-3 text-center"
                     style={{ background: 'rgba(212,175,55,0.06)', border: '1px solid rgba(212,175,55,0.15)' }}>
                     <p className="font-display font-bold text-base" style={{ color: '#d4af37', lineHeight: 1.2 }}>{m.value}</p>

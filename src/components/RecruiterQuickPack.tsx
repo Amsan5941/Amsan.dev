@@ -20,7 +20,7 @@ const BRIEF: [string, string][] = [
 const STATS = [
   { n: '4',     l: 'Co-ops' },
   { n: 'May 26', l: 'Available' },
-  { n: '1000+', l: 'App Users' },
+  { n: 'Beta', l: 'ForgeFit' },
   { n: '1st',   l: 'Hackathon' },
 ]
 

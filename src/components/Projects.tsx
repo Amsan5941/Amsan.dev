@@ -110,7 +110,7 @@ const PINNED: PinnedProject[] = [
     slug: 'forgefit',
     language: 'TypeScript', langColor: LANG_COLORS.TypeScript,
     desc: 'AI-driven fitness mobile app with personalized workout adaptation, progress tracking, and social accountability features.',
-    impactLine: '📱 1000+ App Store Downloads · ⭐ 4.2★ Rating · 150+ Reviews',
+    impactLine: '📱 Newly deployed · Currently in testing phase',
     stack: ['React Native', 'Expo', 'Firebase', 'OpenAI'],
     stars: 12, forks: 3,
     github: 'https://github.com/Amsan5941',
