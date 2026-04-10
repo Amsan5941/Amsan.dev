@@ -40,13 +40,13 @@ const CASE_STUDIES: CaseStudy[] = [
     company: 'Celestica',
     period: 'Sep – Dec 2023',
     impactLine: '150+ daily users across global facilities · 30% infrastructure cost reduction · zero unplanned downtime',
-    stack: ['C#', '.NET', 'Angular', 'Azure SQL', 'Docker'],
+    stack: ['C#', '.NET', 'Azure SQL', 'Docker'],
     problem:
       'Celestica\'s manufacturing analytics were fragmented across 15+ facility-level, on-premises tools with no unified view. SPC (statistical process control) dashboards were siloed, engineers couldn\'t compare process quality across regions, and aging on-prem hardware was driving infrastructure costs up with every refresh cycle. The mandate was to consolidate and migrate — without disrupting the 150+ engineers who relied on the dashboards daily.',
     architecture:
-      'Designed a centralized .NET + Angular SPC platform with a data model that normalized inputs from all facility sources into a single schema. The Angular frontend used lazy-loaded route modules to keep initial load times low across slow factory-floor networks. For the Azure migration, containerized the .NET APIs using Docker, provisioned Azure SQL Managed Instances, and built a data sync layer that ran both environments in parallel during the transition window.',
+      'Designed a centralized .NET-based SPC platform with a data model that normalized inputs from all facility sources into a single schema. Structured the dashboard modules to keep initial load times low across slow factory-floor networks. For the Azure migration, containerized the .NET APIs using Docker, provisioned Azure SQL Managed Instances, and built a data sync layer that ran both environments in parallel during the transition window.',
     tradeoffs:
-      'Chose Angular over React to match the team\'s existing frontend expertise — faster onboarding and fewer support incidents in production outweighed the marginal DX gains of switching. Used feature flags over a hard cutover: each facility was migrated independently with a rollback switch, adding development overhead but eliminating the risk of a botched global cutover on a system 150+ people depended on daily.',
+      'Used feature flags over a hard cutover: each facility was migrated independently with a rollback switch, adding development overhead but eliminating the risk of a botched global cutover on a system 150+ people depended on daily. Accepted temporary dual-write complexity during migration to guarantee reliability and protect reporting continuity for manufacturing teams.',
     impact:
       '30% reduction in on-premises infrastructure costs post-migration. 150+ daily active users across global facilities with a unified dashboard experience. Resolved 47 production-critical issues during the migration window. Zero unplanned downtime across the full cutover period.',
     lessons:

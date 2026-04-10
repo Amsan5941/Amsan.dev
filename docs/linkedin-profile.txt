@@ -34,7 +34,7 @@ Key Impact:
 • Built automation reducing infrastructure costs by 30%
 • Improved system reliability and engineering workflows through CI/CD automation
 
-Technologies: C#, .NET, Angular, SQL Server, Azure, Cloud Infrastructure
+Technologies: C#, .NET, SQL Server, Azure, Cloud Infrastructure
 
 Weston Foods | Software Engineer Intern (Data & Automation) | Jul 2022 – Jan 2024
 Built data and automation workflows for high-volume order operations, improving integrity and reporting reliability across multiple facilities.

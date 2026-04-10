@@ -26,7 +26,7 @@ const JOBS = [
     accentColor: '#f59e0b',
     achievement: '150+ users · 30% cost reduction',
     bullets: [
-      'Built global SPC dashboards with C#, .NET, Angular',
+      'Built global SPC dashboards with C# and .NET',
       'Led Azure cloud migration with zero downtime',
       'Resolved 47+ production-critical issues',
     ],

@@ -99,7 +99,7 @@ const ALL_REPOS: RepoEntry[] = [
   {
     name: 'spc-dashboard',
     language: 'C#', langColor: LANG_COLORS['C#'],
-    desc: 'Global SPC dashboards for manufacturing analytics · Angular + .NET',
+    desc: 'Global SPC dashboards for manufacturing analytics · .NET + Azure',
     updated: '8 months ago', stars: 2, pinned: false,
   },
 ]
@@ -163,7 +163,7 @@ const PINNED: PinnedProject[] = [
     language: 'C#', langColor: LANG_COLORS['C#'],
     desc: 'Global Statistical Process Control dashboards deployed across worldwide manufacturing facilities, with full Azure cloud migration and real-time anomaly monitoring.',
     impactLine: '150+ daily users · 47 production issues resolved · 30% infra cost saved',
-    stack: ['C#', '.NET', 'Angular', 'Azure', 'Azure SQL'],
+    stack: ['C#', '.NET', 'Azure', 'Azure SQL', 'Docker'],
     stars: 2, forks: 0,
     github: 'https://github.com/Amsan5941',
   },
